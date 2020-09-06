@@ -76,15 +76,15 @@ void TIM2_IRQHandler (void)						// обработчик таймера для всяких задержек
 
 
 
-void USART2_IRQHandler(void)
+void USART1_IRQHandler(void)
 {
-	unsigned short temp =  USART2->SR;
-	USART2->SR = 0;
+	unsigned short temp =  USART1->SR;
+	USART1->SR = 0;
 
 	 if (temp & USART_SR_RXNE)			// RXNE - что-то пришло, можно забирать. сбрасывается при чтении DR
 		{
 
-			array_modbas_in[(count_modbas_in & 0x0ff)] = USART2->DR;			// записываем байт в буферный массив для приёма.
+			array_modbas_in[(count_modbas_in & 0x0ff)] = USART1->DR;			// записываем байт в буферный массив для приёма.
 			count_modbas_in++;										// увеличиваем счётчик байт в буфере
 
 
@@ -97,7 +97,7 @@ void USART2_IRQHandler(void)
 
 	 if(temp & USART_SR_TC)
 	 {
-		 USART2->CR1 	&= 	~(USART_CR1_TCIE); 		// выключаем прерывание по завершении передачи. Зачем? ... (злесь нужено включать приёмник, а в сварочнике тоже)
+		 USART1->CR1 	&= 	~(USART_CR1_TCIE); 		// выключаем прерывание по завершении передачи. Зачем? ... (злесь нужено включать приёмник, а в сварочнике тоже)
 
 		 //GPIOC->BSRR =  GPIO_BSRR_BR12;				// записать 0 в GPIOA.12		// слушаем
 
@@ -109,12 +109,12 @@ void USART2_IRQHandler(void)
 		 buffer_index++;								// Увеличиваем индекс
 
 
-		 USART2->DR = array_modbas_out[buffer_index];   // Берем данные из буффера.
+		 USART1->DR = array_modbas_out[buffer_index];   // Берем данные из буффера.
 
 		if(buffer_index == (count_modbas_out-1))  		// Вывели весь буффер?
 			{
-				USART2->CR1 	&= 	~(USART_CR1_TXEIE); 	// Запрещаем прерывание по опустошению - передача закончена
-				USART2->CR1 	|= 	USART_CR1_TCIE; 		// включаем прерывание по завершении передачи
+				USART1->CR1 	&= 	~(USART_CR1_TXEIE); 	// Запрещаем прерывание по опустошению - передача закончена
+				USART1->CR1 	|= 	USART_CR1_TCIE; 		// включаем прерывание по завершении передачи
 			}
 	 }
 }
@@ -167,19 +167,19 @@ void init_modbus(void)
 	 */
 
 	// Задание режима работы
-	USART2->BRR   =   0x0271;                           // 115200
-	USART2->CR1  &=  ~USART_CR1_M;                      // 8 бит данных
-	USART2->CR2  &=  ~USART_CR2_STOP;                   // кол-во стоп-бит: 1
+	USART1->BRR   =   0x0271;                           // 115200
+	USART1->CR1  &=  ~USART_CR1_M;                      // 8 бит данных
+	USART1->CR2  &=  ~USART_CR2_STOP;                   // кол-во стоп-бит: 1
 
 	// Управление работой
-	USART2->CR1  |=   USART_CR1_TE;                     // включение передатчика
-	USART2->CR1  |=   USART_CR1_RE;                     // включение приёмника
+	USART1->CR1  |=   USART_CR1_TE;                     // включение передатчика
+	USART1->CR1  |=   USART_CR1_RE;                     // включение приёмника
 
-	USART2->CR1  |=   USART_CR1_UE;                     // включение модуля USART2
+	USART1->CR1  |=   USART_CR1_UE;                     // включение модуля USART4
 	// Разрешить прерывания
-	NVIC_EnableIRQ (USART2_IRQn);
-	USART2->CR1  |=	USART_CR1_RXNEIE;				    // прерывание по завершению приёма
-	//USART2->CR1  |= 	USART_CR1_TCIE;                 // прерывание по завершению передачи
+	NVIC_EnableIRQ (USART1_IRQn);
+	USART1->CR1  |=	USART_CR1_RXNEIE;				    // прерывание по завершению приёма
+	//USART1->CR1  |= 	USART_CR1_TCIE;                 // прерывание по завершению передачи
 
 	__enable_irq ();
 
@@ -405,8 +405,8 @@ void Modbus_slave(void)
 
 				buffer_index=0;				// Сбрасываем индекс
 
-				USART2->DR = array_modbas_out[0];		// Отправляем первый байт из массива для отправки
-				USART2->CR1 	|= 	USART_CR1_TXEIE;		// включаем прерывание по опустошению души
+				USART1->DR = array_modbas_out[0];		// Отправляем первый байт из массива для отправки
+				USART1->CR1 	|= 	USART_CR1_TXEIE;		// включаем прерывание по опустошению души
 
 
 				swith_modbas = 0; 			// сбрасываем свич в дефолт и не заходим сюда

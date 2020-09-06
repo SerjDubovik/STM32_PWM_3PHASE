@@ -49,13 +49,13 @@ void init_GPIO(void)
 	GPIOA->CRL   |=   GPIO_CRL_CNF3_0;                   //Вход, третье состояние
 
 
-	// конфигурирование GPIOA.1								//управление приёмо-передатчиком
+	// конфигурирование GPIOA.1							//управление приёмо-передатчиком
 	GPIOA->CRL &= ~GPIO_CRL_MODE1;   						//очистить разряды MODE
 	GPIOA->CRL &= ~GPIO_CRL_CNF1;    						//очистить разряды CNF
 	GPIOA->CRL |=  GPIO_CRL_MODE1;   						//выход, 50MHz
 	GPIOA->CRL &= ~GPIO_CRL_CNF1;    						//общего назначения, симетричный
 
-	// записать 0 в GPIOA.1									// слушием
+	// записать 0 в GPIOA.1								// слушием
 	GPIOA->BSRR =  GPIO_BSRR_BR1;
 
 

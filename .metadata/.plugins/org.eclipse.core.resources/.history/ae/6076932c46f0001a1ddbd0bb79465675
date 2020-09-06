@@ -36,9 +36,8 @@ void init_GPIO(void)
 
 
 	//USART2
-	RCC->APB2ENR |=   RCC_APB2ENR_AFIOEN;				 // тактирование альтернативных функций GPIO
 	RCC->APB1ENR |=   RCC_APB1ENR_USART2EN;              // тактирование USART2
-
+	RCC->APB2ENR |=   RCC_APB2ENR_AFIOEN;				 // тактирование альтернативных функций GPIO
 
 	//конфигурирование PORTA.2 для TX
 	GPIOA->CRL   &= ~(GPIO_CRL_MODE2 | GPIO_CRL_CNF2);   //Предочистка MODE и CNF
@@ -47,17 +46,6 @@ void init_GPIO(void)
 	//конфигурирование PORTA.3 для RX
 	GPIOA->CRL   &= ~(GPIO_CRL_MODE3 | GPIO_CRL_CNF3);   //Предочистка MODE и CNF
 	GPIOA->CRL   |=   GPIO_CRL_CNF3_0;                   //Вход, третье состояние
-
-
-	// конфигурирование GPIOA.1								//управление приёмо-передатчиком
-	GPIOA->CRL &= ~GPIO_CRL_MODE1;   						//очистить разряды MODE
-	GPIOA->CRL &= ~GPIO_CRL_CNF1;    						//очистить разряды CNF
-	GPIOA->CRL |=  GPIO_CRL_MODE1;   						//выход, 50MHz
-	GPIOA->CRL &= ~GPIO_CRL_CNF1;    						//общего назначения, симетричный
-
-	// записать 0 в GPIOA.1									// слушием
-	GPIOA->BSRR =  GPIO_BSRR_BR1;
-
 
 
 

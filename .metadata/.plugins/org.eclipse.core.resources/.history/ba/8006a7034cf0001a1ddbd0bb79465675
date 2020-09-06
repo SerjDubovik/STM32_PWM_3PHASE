@@ -167,7 +167,7 @@ void init_modbus(void)
 	 */
 
 	// «адание режима работы
-	USART2->BRR   =   0x0139;                           // 115200
+	USART2->BRR   =   0x0271;                           // 115200
 	USART2->CR1  &=  ~USART_CR1_M;                      // 8 бит данных
 	USART2->CR2  &=  ~USART_CR2_STOP;                   // кол-во стоп-бит: 1
 

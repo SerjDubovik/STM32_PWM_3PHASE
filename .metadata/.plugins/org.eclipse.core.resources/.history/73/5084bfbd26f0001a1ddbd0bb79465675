@@ -2,20 +2,17 @@
 #include "modbus.h"
 
 
-
 unsigned short	array_mb[100]			= {};				// массив для хранения принятых/переданных слов
 
 int main(void)
 {
 
+    InitClk();
 
     init_modbus();
 
 	for(;;)
 	{
-
-
-
 
 		array_mb[8]++;
 

@@ -1,6 +1,6 @@
 #include "stm32f10x.h"
 #include "modbus.h"
-
+//#include "system.h"
 
 
 unsigned short	array_mb[100]			= {};				// массив для хранения принятых/переданных слов
@@ -8,14 +8,12 @@ unsigned short	array_mb[100]			= {};				// массив для хранения принятых/переданн
 int main(void)
 {
 
+//    InitClk();
 
     init_modbus();
 
 	for(;;)
 	{
-
-
-
 
 		array_mb[8]++;
 

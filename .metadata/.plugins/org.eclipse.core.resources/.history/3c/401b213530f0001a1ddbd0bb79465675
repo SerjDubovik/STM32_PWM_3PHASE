@@ -8,6 +8,10 @@ unsigned short	array_mb[100]			= {};				// массив для хранения принятых/переданн
 int main(void)
 {
 
+//    InitClk();
+
+
+
 
     init_modbus();
 

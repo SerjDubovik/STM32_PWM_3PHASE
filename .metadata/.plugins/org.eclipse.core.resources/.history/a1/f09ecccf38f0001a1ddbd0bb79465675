@@ -11,7 +11,7 @@ int main(void)
 
 
 
-	init_GPIO();
+
     init_modbus();
 
 

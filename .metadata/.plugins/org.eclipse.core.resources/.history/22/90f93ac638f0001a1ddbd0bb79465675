@@ -146,6 +146,22 @@ void init_modbus(void)
 {
 	init_timer2();
 
+	/////////////////////////
+	// Переферия
+
+	  //включаем татирование
+	  RCC->APB2ENR |=   RCC_APB2ENR_AFIOEN;                // тактирование альтернативных функций GPIO
+	  RCC->APB2ENR |=   RCC_APB2ENR_USART1EN;              // тактирование USART1
+
+	  //конфигурирование PORTA.9 для TX
+	  GPIOA->CRH   &= ~(GPIO_CRH_MODE9 | GPIO_CRH_CNF9);   // предочистка MODE и CNF
+	  GPIOA->CRH   |=   GPIO_CRH_MODE9 | GPIO_CRH_CNF9_1;  // двухтактный выход с альтернати ф-ей, 50MHz
+
+	  //конфигурирование PORTA.10 для RX
+	  GPIOA->CRH   &= ~(GPIO_CRH_MODE10 | GPIO_CRH_CNF10);   // предочистка MODE и CNF
+	  GPIOA->CRH   |=   GPIO_CRH_CNF10_0;                   // вход, третье состояние
+
+
 
 	// Вычислим и настроим бодрейт. (72 000 000/19200)/16 = 234.375 Получаем старшую часть 0хЕА, а младшую 0х6. Итого BRR = 0xEA6.
 	// (72 000 000 / 115 200) / 16 = 39,0625

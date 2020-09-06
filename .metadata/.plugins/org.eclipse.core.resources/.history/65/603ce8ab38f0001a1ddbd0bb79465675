@@ -1,0 +1,8 @@
+#include "stm32f10x.h"
+#include "GPIO.h"
+
+
+void init_GPIO(void)
+{
+
+} // скобочка init_GPIO

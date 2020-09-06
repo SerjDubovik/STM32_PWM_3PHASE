@@ -11,9 +11,9 @@ int 			count_modbas_in 		= 0;				// счётчик кол-ва принятых байт
 int 			array_modbas_out[255];						// буфер для передачи из уарта
 int 			count_modbas_out 		= 0;				// счётчик кол-ва переданных байт
 int 			buffer_index			= 0;				// счётчик для отправки
+int 			count_transf_array 		= 0;				// счётчик для перегрузки массивов
 
-
-extern unsigned short	array_mb[leth_array];				// массив для хранения принятых/переданных слов
+extern unsigned short	array_mb[leth_array];						// массив для хранения принятых/переданных слов
 
 unsigned long 	crc_calc 				= 0;				// расчётная контрольная сумма
 unsigned long 	adrr_var 				= 0;				// собраный адрес из массива принятого по сети. для сравнения.
@@ -24,10 +24,6 @@ unsigned int 	crc_read_high 			= 0;				//
 unsigned int 	crc_calc_low 			= 0;				//
 unsigned int 	crc_calc_high 			= 0;				//
 
-
-// всякие переменные
-unsigned long count_test = 0;
-int triger = 0;
 
 
 // Обработчики прерываний
@@ -46,28 +42,6 @@ void TIM2_IRQHandler (void)						// обработчик таймера для всяких задержек
 			delay_packet--;
 		}
 
-	}
-
-
-
-	if (count_test < 1000)								// тестовая качеля для светика на плате
-	{
-		count_test ++;
-	}
-	else
-	{
-		count_test = 0;
-
-		if(triger == 0)
-		{
-			triger = 1;
-			GPIOC->BSRR =  GPIO_BSRR_BR13;   // = 0
-		}
-		else
-		{
-			triger = 0;
-			GPIOC->BSRR =  GPIO_BSRR_BS13;   // = 1
-		}
 	}
 }
 
@@ -145,6 +119,22 @@ void init_timer2(void)						// Настройка таймера 2. Общий для отсчётов задержек
 void init_modbus(void)
 {
 	init_timer2();
+
+	/////////////////////////
+	// Переферия
+
+	  //включаем татирование
+	  RCC->APB2ENR |=   RCC_APB2ENR_AFIOEN;                // тактирование альтернативных функций GPIO
+	  RCC->APB2ENR |=   RCC_APB2ENR_USART1EN;              // тактирование USART1
+
+	  //конфигурирование PORTA.9 для TX
+	  GPIOA->CRH   &= ~(GPIO_CRH_MODE9 | GPIO_CRH_CNF9);   // предочистка MODE и CNF
+	  GPIOA->CRH   |=   GPIO_CRH_MODE9 | GPIO_CRH_CNF9_1;  // двухтактный выход с альтернати ф-ей, 50MHz
+
+	  //конфигурирование PORTA.10 для RX
+	  GPIOA->CRH   &= ~(GPIO_CRH_MODE10 | GPIO_CRH_CNF10);   // предочистка MODE и CNF
+	  GPIOA->CRH   |=   GPIO_CRH_CNF10_0;                   // вход, третье состояние
+
 
 
 	// Вычислим и настроим бодрейт. (72 000 000/19200)/16 = 234.375 Получаем старшую часть 0хЕА, а младшую 0х6. Итого BRR = 0xEA6.

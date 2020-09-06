@@ -1,0 +1,31 @@
+#include "stm32f10x.h"
+#include "modbus.h"
+
+
+
+unsigned short	array_mb[100]			= {};				// массив дл€ хранени€ прин€тых/переданных слов
+
+int main(void)
+{
+
+
+    init_modbus();
+
+	// онфигурирование GPIOC.13	красный светик на плате
+	GPIOC->CRH &= ~GPIO_CRH_MODE13;   			// очистить разр€ды MODE
+	GPIOC->CRH &= ~GPIO_CRH_CNF13;    			// очистить разр€ды CNF
+	GPIOC->CRH |=  GPIO_CRH_MODE13;   			// выход, 50MHz
+	GPIOC->CRH &= ~GPIO_CRH_CNF13;    			// общего назначени€, симметричный
+
+	for(;;)
+	{
+
+
+
+
+		array_mb[8]++;
+
+		Modbus_slave();
+
+	} // скобка бесконечного цикла
+} // скобка мейна

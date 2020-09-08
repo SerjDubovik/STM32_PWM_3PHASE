@@ -1,4 +1,4 @@
-23:41:51 **** Incremental Build of configuration Debug for project STM32_PWM_3PHASE ****
+23:56:45 **** Incremental Build of configuration Debug for project STM32_PWM_3PHASE ****
 make -j4 all 
 Building file: ../src/main.c
 Invoking: MCU GCC Compiler
@@ -19,5 +19,5 @@ arm-none-eabi-size "STM32_PWM_3PHASE.elf"
    3548	   1080	   3388	   8016	   1f50	STM32_PWM_3PHASE.elf
  
 
-23:41:54 Build Finished (took 3s.305ms)
+23:56:49 Build Finished (took 3s.364ms)
 

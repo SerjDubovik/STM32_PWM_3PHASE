@@ -1,4 +1,4 @@
-23:41:51 **** Incremental Build of configuration Debug for project STM32_PWM_3PHASE ****
+23:56:45 **** Incremental Build of configuration Debug for project STM32_PWM_3PHASE ****
 make -j4 all 
 Building file: ../src/main.c
 Invoking: MCU GCC Compiler

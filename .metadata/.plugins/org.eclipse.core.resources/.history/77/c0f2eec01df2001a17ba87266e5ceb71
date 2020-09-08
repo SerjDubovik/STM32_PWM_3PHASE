@@ -71,9 +71,7 @@ int main(void)
 
 		if(step_PWM <= 90)
 		{
-			PWM_1 = factor_voltage * sin_mass[step_PWM] * half_period;
-			PWM_2 = factor_voltage * sin_mass[step_PWM] * half_period;
-			PWM_3 = factor_voltage * sin_mass[step_PWM] * half_period;
+			PWM_1 = factor_voltage * sin_mass[step_PWM] *
 		}
 		if((step_PWM > 90) && (step_PWM <= 180))
 		{

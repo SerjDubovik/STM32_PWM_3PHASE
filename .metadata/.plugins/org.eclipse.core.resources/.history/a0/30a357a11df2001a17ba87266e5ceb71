@@ -5,8 +5,7 @@
 
 
 #define period               4500	//	4500 - 16kHz COMPL_MODE		// 360 - 100 kHz PP_MODE
-#define half_period			period / 2
-#define DEADTIME            	20
+#define DEADTIME            20
 
 
 
@@ -33,11 +32,11 @@ unsigned short	PWM_3 = period / 2;
 
 unsigned short	step_PWM = 0;								// текущий шаг для построения синуса.
 
-float factor_voltage;										// коэффициент для задания амплитуды синуса
 
 
 int main(void)
 {
+
 
 
 	init_GPIO();
@@ -71,9 +70,7 @@ int main(void)
 
 		if(step_PWM <= 90)
 		{
-			PWM_1 = factor_voltage * sin_mass[step_PWM] * half_period;
-			PWM_2 = factor_voltage * sin_mass[step_PWM] * half_period;
-			PWM_3 = factor_voltage * sin_mass[step_PWM] * half_period;
+
 		}
 		if((step_PWM > 90) && (step_PWM <= 180))
 		{
@@ -89,9 +86,6 @@ int main(void)
 		}
 
 		step_PWM++;
-
-
-
 
 
 		array_mb[8]++;

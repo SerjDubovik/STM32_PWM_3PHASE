@@ -4,9 +4,8 @@
 
 
 
-#define period               4500	//	4500 - 16kHz COMPL_MODE		// 360 - 100 kHz PP_MODE
-#define half_period			period / 2
-#define DEADTIME            	20
+#define TMR_T               4500	//	4500 - 16kHz COMPL_MODE		// 360 - 100 kHz PP_MODE
+#define DEADTIME            20
 
 
 
@@ -15,7 +14,6 @@ unsigned short	array_mb[100]			= {};				// массив для хранения принятых/переданн
 
 
 const float sin_mass[90] = {
-
 		0.0, 0.0175, 0.0349, 0.0523, 0.0698, 0.0872, 0.1045, 0.1219, 0.1392, 0.1564,
 		0.1736, 0.1908, 0.2079, 0.2250, 0.2419, 0.2588, 0.2756, 0.2924, 0.3090, 0.3256,
 		0.3420, 0.3584, 0.3746, 0.3907, 0.4067, 0.4226, 0.4384, 0.4540, 0.4695, 0.4848,
@@ -27,17 +25,15 @@ const float sin_mass[90] = {
 		0.9848, 0.9877, 0.9903, 0.9925, 0.9945, 0.9962, 0.9976, 0.9986, 0.9994, 0.9998
 };
 
-unsigned short	PWM_1 = period / 2;							// значения для таймера 1. три канала. задаёт текущий синус
-unsigned short	PWM_2 = period / 2;
-unsigned short	PWM_3 = period / 2;
+unsigned short	PWM_1 = TMR_T / 2;
+unsigned short	PWM_2 = TMR_T / 2;
+unsigned short	PWM_3 = TMR_T / 2;
 
-unsigned short	step_PWM = 0;								// текущий шаг для построения синуса.
-
-float factor_voltage;										// коэффициент для задания амплитуды синуса
 
 
 int main(void)
 {
+
 
 
 	init_GPIO();
@@ -53,7 +49,7 @@ int main(void)
     TIM1->CCER=TIM_CCER_CC3E | TIM_CCER_CC3NE;
 
     TIM1->BDTR=TIM_BDTR_MOE | DEADTIME;
-    TIM1->ARR=period;										// период
+    TIM1->ARR=TMR_T;
     TIM1->CR1=TIM_CR1_ARPE;
     TIM1->CR1|=TIM_CR1_CEN;
     TIM1->EGR=TIM_EGR_UG;
@@ -68,28 +64,6 @@ int main(void)
 
 	for(;;)
 	{
-
-		if(step_PWM <= 90)
-		{
-			PWM_1 = factor_voltage * sin_mass[step_PWM] * half_period;
-			PWM_2 = factor_voltage * sin_mass[step_PWM] * half_period;
-			PWM_3 = factor_voltage * sin_mass[step_PWM] * half_period;
-		}
-		if((step_PWM > 90) && (step_PWM <= 180))
-		{
-
-		}
-		if((step_PWM > 180) && (step_PWM <= 270))
-		{
-
-		}
-		if((step_PWM > 270) && (step_PWM <= 360))
-		{
-
-		}
-
-		step_PWM++;
-
 
 
 

@@ -83,12 +83,12 @@ int main(void)
 			PWM_1 = (factor_voltage * (sin_mass[step_PWM_1] * half_period)) + half_period;
 		}
 
-		if(step_PWM_1 > 180)
+		if(step_PWM > 180)
 		{
 			PWM_1 = half_period - (factor_voltage * (sin_mass[step_PWM_1 - 180] * half_period));
 		}
 
-		if(step_PWM_1 == 360)
+		if(step_PWM == 360)
 		{
 			step_PWM_1 = 0;
 		}

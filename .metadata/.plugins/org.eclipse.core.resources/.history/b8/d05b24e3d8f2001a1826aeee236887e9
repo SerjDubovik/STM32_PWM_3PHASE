@@ -40,7 +40,7 @@ unsigned short	PWM_1 = period / 2;							// значения для таймера 1. три канала. 
 unsigned short	PWM_2 = period / 2;
 unsigned short	PWM_3 = period / 2;
 
-unsigned short	step_PWM_1 = 0;								// текущий шаг для построения синуса.
+unsigned short	step_PWM = 0;								// текущий шаг для построения синуса.
 
 float factor_voltage = 1.0f;										// коэффициент для задания амплитуды синуса
 
@@ -78,23 +78,25 @@ int main(void)
 	for(;;)
 	{
 
-		if(step_PWM_1 <= 180)
+		if(step_PWM <= 180)
 		{
-			PWM_1 = (factor_voltage * (sin_mass[step_PWM_1] * half_period)) + half_period;
-		}
+			PWM_1 = (factor_voltage * (sin_mass[step_PWM] * half_period)) + half_period;
+			PWM_2 = (factor_voltage * (sin_mass[step_PWM + 120] * half_period)) + half_period;
+			PWM_3 = (factor_voltage * (sin_mass[step_PWM + 240] * half_period)) + half_period;
 
-		if(step_PWM_1 > 180)
-		{
-			PWM_1 = half_period - (factor_voltage * (sin_mass[step_PWM_1 - 180] * half_period));
+			step_PWM++;
 		}
+		if(step_PWM > 180)
+		{
+			PWM_1 = (factor_voltage * (sin_mass[step_PWM] * half_period)) - half_period;
+			PWM_2 = (factor_voltage * (sin_mass[(step_PWM) + 120] * half_period)) - half_period;
+			PWM_3 = (factor_voltage * (sin_mass[(step_PWM) + 240] * half_period)) - half_period;
 
-		if(step_PWM_1 == 360)
-		{
-			step_PWM_1 = 0;
+			step_PWM++;
 		}
-		else
+		if(step_PWM == 360)
 		{
-			step_PWM_1++;
+			step_PWM = 0;
 		}
 
 

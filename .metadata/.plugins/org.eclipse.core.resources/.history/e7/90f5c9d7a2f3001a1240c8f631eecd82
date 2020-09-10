@@ -74,7 +74,7 @@ void init_timer3(void)						// Настройка таймера 2. Общий для отсчётов задержек
 	TIM3->CR1 |= TIM_CR1_DIR;
 
 	TIM3->PSC = 71;							// 72MHz/(PSC+1)	один тик  - 1 мкс
-	TIM3->ARR = 1000;						// 249
+	TIM3->ARR = 249;						// 249
 
 
 	TIM3->DIER |= TIM_DIER_UIE;
@@ -93,14 +93,7 @@ void TIM3_IRQHandler (void)									// обработчик таймера для всяких задержек
 	if(status & TIM_SR_UIF)
 	{
 
-
-
-		test_pwm_step();
-
-
-
-
-		if (count_test < 500)								// тестовая качеля для светика на плате
+		if (count_test < 1000)								// тестовая качеля для светика на плате
 		{
 			count_test ++;
 		}

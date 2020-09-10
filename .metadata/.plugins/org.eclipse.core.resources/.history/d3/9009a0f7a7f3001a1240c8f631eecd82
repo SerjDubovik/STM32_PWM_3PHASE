@@ -93,14 +93,7 @@ void TIM3_IRQHandler (void)									// обработчик таймера для всяких задержек
 	if(status & TIM_SR_UIF)
 	{
 
-
-
-		test_pwm_step();
-
-
-
-
-		if (count_test < 500)								// тестовая качеля для светика на плате
+		if (count_test < 1000)								// тестовая качеля для светика на плате
 		{
 			count_test ++;
 		}

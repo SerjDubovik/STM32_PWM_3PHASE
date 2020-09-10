@@ -28,6 +28,8 @@ int main(void)
 	{
 
 
+		test_pwm_step();
+
 /*
 		array_mb[8]++;
 

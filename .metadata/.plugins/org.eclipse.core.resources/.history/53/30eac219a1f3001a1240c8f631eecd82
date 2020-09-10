@@ -37,9 +37,6 @@ unsigned short step_PWM_3 = 240;
 float factor_voltage = 1.0f;								// коэффициент для задания амплитуды синуса
 
 
-// всякие переменные
-unsigned long count_test = 0;
-int triger = 0;
 
 
 
@@ -69,18 +66,21 @@ void init_pwm(void)
 
 void init_timer3(void)						// Настройка таймера 2. Общий для отсчётов задержек
 {
-	RCC->APB1ENR |= RCC_APB1ENR_TIM3EN;
-	TIM3->CR1 |= TIM_CR1_ARPE; 				//shadow
-	TIM3->CR1 |= TIM_CR1_DIR;
+	RCC->APB1ENR |= RCC_APB1ENR_TIM2EN;
+	//TIM2->CR1 |= TIM_CR1_CKD_1;
+	TIM2->CR1 |= TIM_CR1_ARPE; 				//shadow
+	//TIM2->CR1 |= TIM_CR1_URS;
+	TIM2->CR1 |= TIM_CR1_DIR;
 
-	TIM3->PSC = 71;							// 72MHz/(PSC+1)	один тик  - 1 мкс
-	TIM3->ARR = 249;						// 249
+	TIM2->PSC = 71;							// 72MHz/(PSC+1)	один тик  - 1 мкс
+	TIM2->ARR = 249;
 
+	//TIM2->DIER |= TIM_DIER_TIE;
+	TIM2->DIER |= TIM_DIER_UIE;
 
-	TIM3->DIER |= TIM_DIER_UIE;
-	TIM3->CR1 |= TIM_CR1_CEN;
+	TIM2->CR1 |= TIM_CR1_CEN;
 
-	NVIC_EnableIRQ (TIM3_IRQn);
+	NVIC_EnableIRQ (TIM2_IRQn);
 }
 
 
@@ -92,26 +92,6 @@ void TIM3_IRQHandler (void)									// обработчик таймера для всяких задержек
 
 	if(status & TIM_SR_UIF)
 	{
-
-		if (count_test < 1000)								// тестовая качеля для светика на плате
-		{
-			count_test ++;
-		}
-		else
-		{
-			count_test = 0;
-
-			if(triger == 0)
-			{
-				triger = 1;
-				GPIOC->BSRR =  GPIO_BSRR_BR13;   // = 0
-			}
-			else
-			{
-				triger = 0;
-				GPIOC->BSRR =  GPIO_BSRR_BS13;   // = 1
-			}
-		}
 
 	}
 } // скобка TIM2_IRQHandler

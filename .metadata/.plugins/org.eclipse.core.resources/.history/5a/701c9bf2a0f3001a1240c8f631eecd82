@@ -8,7 +8,6 @@
 
 void init_pwm(void);
 void test_pwm_step(void);
-void init_timer3(void);
 
 
 

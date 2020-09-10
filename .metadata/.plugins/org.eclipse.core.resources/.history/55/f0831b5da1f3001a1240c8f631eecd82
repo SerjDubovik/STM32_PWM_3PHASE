@@ -25,6 +25,9 @@ unsigned int 	crc_calc_low 			= 0;				//
 unsigned int 	crc_calc_high 			= 0;				//
 
 
+// всякие переменные
+unsigned long count_test = 0;
+int triger = 0;
 
 
 // Обработчики прерываний
@@ -46,6 +49,26 @@ void TIM2_IRQHandler (void)						// обработчик таймера для всяких задержек
 	}
 
 
+
+	if (count_test < 1000)								// тестовая качеля для светика на плате
+	{
+		count_test ++;
+	}
+	else
+	{
+		count_test = 0;
+
+		if(triger == 0)
+		{
+			triger = 1;
+			GPIOC->BSRR =  GPIO_BSRR_BR13;   // = 0
+		}
+		else
+		{
+			triger = 0;
+			GPIOC->BSRR =  GPIO_BSRR_BS13;   // = 1
+		}
+	}
 }
 
 

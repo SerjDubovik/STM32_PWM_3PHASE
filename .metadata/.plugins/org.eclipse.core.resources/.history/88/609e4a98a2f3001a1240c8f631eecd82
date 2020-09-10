@@ -74,7 +74,7 @@ void init_timer3(void)						// Настройка таймера 2. Общий для отсчётов задержек
 	TIM3->CR1 |= TIM_CR1_DIR;
 
 	TIM3->PSC = 71;							// 72MHz/(PSC+1)	один тик  - 1 мкс
-	TIM3->ARR = 249;						// 249
+	TIM3->ARR = 500;						// 249
 
 
 	TIM3->DIER |= TIM_DIER_UIE;

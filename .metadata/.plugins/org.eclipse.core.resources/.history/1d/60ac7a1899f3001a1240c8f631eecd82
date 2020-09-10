@@ -83,64 +83,28 @@ int main(void)
 	for(;;)
 	{
 
-		if(step_PWM_1 <= 180)
+		if(angle <= 180)
 		{
 			PWM_1 = (factor_voltage * (sin_mass[step_PWM_1] * half_period)) + half_period;
 		}
 
-		if(step_PWM_1 > 180)
+		if(angle > 180)
 		{
 			PWM_1 = half_period - (factor_voltage * (sin_mass[step_PWM_1 - 180] * half_period));
 		}
 
-		if(step_PWM_1 >= 360)
+		if(angle == 360)
 		{
-			step_PWM_1 = 0;
+			angle = 0;
 		}
 		else
 		{
-			step_PWM_1++;
-		}
-/////////
-
-		if(step_PWM_2 <= 180)
-		{
-			PWM_2 = (factor_voltage * (sin_mass[step_PWM_2] * half_period)) + half_period;
+			angle++;
 		}
 
-		if(step_PWM_2 > 180)
-		{
-			PWM_2 = half_period - (factor_voltage * (sin_mass[step_PWM_2 - 180] * half_period));
-		}
 
-		if(step_PWM_2 >= 360)
-		{
-			step_PWM_2 = 0;
-		}
-		else
-		{
-			step_PWM_2++;
-		}
-/////////
-		if(step_PWM_3 <= 180)
-		{
-			PWM_3 = (factor_voltage * (sin_mass[step_PWM_3] * half_period)) + half_period;
-		}
 
-		if(step_PWM_3 > 180)
-		{
-			PWM_3 = half_period - (factor_voltage * (sin_mass[step_PWM_3 - 180] * half_period));
-		}
 
-		if(step_PWM_3 >= 360)
-		{
-			step_PWM_3 = 0;
-		}
-		else
-		{
-			step_PWM_3++;
-		}
-/////////
 
 
 /*

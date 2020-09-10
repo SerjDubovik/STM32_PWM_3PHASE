@@ -14,7 +14,7 @@
 unsigned short	array_mb[100]			= {};				// массив для хранения принятых/переданных слов
 
 
-const float sin_mass[180] = {
+const float sin_mass[360] = {
 
 		0.0, 0.0175, 0.0349, 0.0523, 0.0698, 0.0872, 0.1045, 0.1219, 0.1392, 0.1564,
 		0.1736, 0.1908, 0.2079, 0.2250, 0.2419, 0.2588, 0.2756, 0.2924, 0.3090, 0.3256,
@@ -40,12 +40,7 @@ unsigned short	PWM_1 = period / 2;							// значения для таймера 1. три канала. 
 unsigned short	PWM_2 = period / 2;
 unsigned short	PWM_3 = period / 2;
 
-unsigned short	angle = 0;									// текущий угол для построения синуса.
-
-unsigned short step_PWM_1 = 0;								// номера элементов массива. для сдвига фаз на 120 градусов
-unsigned short step_PWM_2 = 120;
-unsigned short step_PWM_3 = 240;
-
+unsigned short	step_PWM_1 = 0;								// текущий шаг для построения синуса.
 
 float factor_voltage = 1.0f;										// коэффициент для задания амплитуды синуса
 
@@ -93,7 +88,7 @@ int main(void)
 			PWM_1 = half_period - (factor_voltage * (sin_mass[step_PWM_1 - 180] * half_period));
 		}
 
-		if(step_PWM_1 >= 360)
+		if(step_PWM_1 == 360)
 		{
 			step_PWM_1 = 0;
 		}
@@ -101,46 +96,10 @@ int main(void)
 		{
 			step_PWM_1++;
 		}
-/////////
 
-		if(step_PWM_2 <= 180)
-		{
-			PWM_2 = (factor_voltage * (sin_mass[step_PWM_2] * half_period)) + half_period;
-		}
 
-		if(step_PWM_2 > 180)
-		{
-			PWM_2 = half_period - (factor_voltage * (sin_mass[step_PWM_2 - 180] * half_period));
-		}
 
-		if(step_PWM_2 >= 360)
-		{
-			step_PWM_2 = 0;
-		}
-		else
-		{
-			step_PWM_2++;
-		}
-/////////
-		if(step_PWM_3 <= 180)
-		{
-			PWM_3 = (factor_voltage * (sin_mass[step_PWM_3] * half_period)) + half_period;
-		}
 
-		if(step_PWM_3 > 180)
-		{
-			PWM_3 = half_period - (factor_voltage * (sin_mass[step_PWM_3 - 180] * half_period));
-		}
-
-		if(step_PWM_3 >= 360)
-		{
-			step_PWM_3 = 0;
-		}
-		else
-		{
-			step_PWM_3++;
-		}
-/////////
 
 
 /*

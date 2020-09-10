@@ -74,9 +74,8 @@ void init_timer3(void)						// Настройка таймера 2. Общий для отсчётов задержек
 	TIM3->CR1 |= TIM_CR1_DIR;
 
 	TIM3->PSC = 71;							// 72MHz/(PSC+1)	один тик  - 1 мкс
-	TIM3->ARR = 25;							// 1000 - 1 мс
-											// 50 - 55,55 гц
-											// 25 - 111,111 гц
+	TIM3->ARR = 1000;						// 249
+
 
 	TIM3->DIER |= TIM_DIER_UIE;
 	TIM3->CR1 |= TIM_CR1_CEN;
@@ -85,7 +84,7 @@ void init_timer3(void)						// Настройка таймера 2. Общий для отсчётов задержек
 }
 
 
-void TIM3_IRQHandler (void)									// обработчик таймера для расчёта частоты частоты синуса
+void TIM3_IRQHandler (void)									// обработчик таймера для всяких задержек
 {
 	unsigned short status;
 	status = TIM3->SR;
@@ -101,7 +100,7 @@ void TIM3_IRQHandler (void)									// обработчик таймера для расчёта частоты ча
 
 
 
-		if (count_test < 5000)								// тестовая качеля для светика на плате
+		if (count_test < 500)								// тестовая качеля для светика на плате
 		{
 			count_test ++;
 		}

@@ -143,49 +143,6 @@ void init_GPIO(void)
 	// PB4 - Pin4
 	// PB5 - Pin45
 
-	//Конфигурирование GPIOB.6							// I2C1_SCL
-	GPIOB->CRL &= ~GPIO_CRL_MODE6;   					// очистить разряды MODE
-	GPIOB->CRL &= ~GPIO_CRL_CNF6;    					// очистить разряды CNF
-	GPIOB->CRL |=  GPIO_CRL_MODE6;   					// выход, 50MHz
-	GPIOB->CRL |=  GPIO_CRL_CNF6_1;  					// альтернативная функция, симетричный
 
-	//Конфигурирование GPIOB.7							// I2C1_SDA
-	GPIOB->CRL &= ~GPIO_CRL_MODE7;   					// очистить разряды MODE
-	GPIOB->CRL &= ~GPIO_CRL_CNF7;    					// очистить разряды CNF
-	GPIOB->CRL |=  GPIO_CRL_MODE7;   					// выход, 50MHz
-	GPIOB->CRL |=  GPIO_CRL_CNF7_1;  					// альтернативная функция, симетричный
-
-	// PB8 - Pin6
-	// PB9 - Pin7
-	// PB10 - Pin8
-	// PB11 - Pin9
-
-	//Конфигурирование GPIOB.12							// NSS
-	GPIOB->CRH &= ~GPIO_CRH_MODE12;  					// очистить разряды MODE
-	GPIOB->CRH &= ~GPIO_CRH_CNF12;   					// очистить разряды CNF
-	GPIOB->CRH |=  GPIO_CRH_MODE12;  					// выход, 50MHz
-	GPIOB->CRH |=  GPIO_CRH_CNF12_1; 					// альтернативная функция, симетричный
-
-	//Конфигурирование GPIOB.13							// SCK
-	GPIOB->CRH &= ~GPIO_CRH_MODE13;  					// очистить разряды MODE
-	GPIOB->CRH &= ~GPIO_CRH_CNF13;   					// очистить разряды CNF
-	GPIOB->CRH |=  GPIO_CRH_MODE13;  					// выход, 50MHz
-	GPIOB->CRH |=  GPIO_CRH_CNF13_1; 					// альтернативная функция, симетричный
-
-	//Конфигурирование GPIOB.14							// MISO
-	GPIOB->CRH &= ~GPIO_CRH_MODE14;  					// очистить разряды MODE
-	GPIOB->CRH &= ~GPIO_CRH_CNF14;   					// очистить разряды CNF
-	GPIOB->CRH |=  GPIO_CRH_MODE14;  					// выход, 50MHz
-	GPIOB->CRH |=  GPIO_CRH_CNF14_1; 					// альтернативная функция, симетричный
-
-	//Конфигурирование GPIOB.15							// MOSI
-	GPIOB->CRH &= ~GPIO_CRH_MODE15;  					// очистить разряды MODE
-	GPIOB->CRH &= ~GPIO_CRH_CNF15;   					// очистить разряды CNF
-	GPIOB->CRH |=  GPIO_CRH_MODE15;  					// выход, 50MHz
-	GPIOB->CRH |=  GPIO_CRH_CNF15_1; 					// альтернативная функция, симетричный
-
-	// PC13 - Pin1
-	// PC14 - Pin2
-	// PC15 - Pin3
 
 } // скобочка init_GPIO

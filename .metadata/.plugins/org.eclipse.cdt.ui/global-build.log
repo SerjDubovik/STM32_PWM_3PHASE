@@ -1,10 +1,10 @@
-01:22:27 **** Incremental Build of configuration Debug for project STM32_PWM_3PHASE ****
+15:36:46 **** Incremental Build of configuration Debug for project STM32_PWM_3PHASE ****
 make -j4 all 
-Building file: ../src/pwm.c
+Building file: ../src/GPIO.c
 Invoking: MCU GCC Compiler
 D:\GIT\GitHub\STM32_PWM_3PHASE\STM32_PWM_3PHASE\Debug
-arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft -DSTM32 -DSTM32F1 -DSTM32F103C8Tx -DDEBUG -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER -I"D:/GIT/GitHub/STM32_PWM_3PHASE/STM32_PWM_3PHASE/StdPeriph_Driver/inc" -I"D:/GIT/GitHub/STM32_PWM_3PHASE/STM32_PWM_3PHASE/inc" -I"D:/GIT/GitHub/STM32_PWM_3PHASE/STM32_PWM_3PHASE/CMSIS/device" -I"D:/GIT/GitHub/STM32_PWM_3PHASE/STM32_PWM_3PHASE/CMSIS/core" -O0 -g3 -Wall -fmessage-length=0 -ffunction-sections -c -MMD -MP -MF"src/pwm.d" -MT"src/pwm.o" -o "src/pwm.o" "../src/pwm.c"
-Finished building: ../src/pwm.c
+arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft -DSTM32 -DSTM32F1 -DSTM32F103C8Tx -DDEBUG -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER -I"D:/GIT/GitHub/STM32_PWM_3PHASE/STM32_PWM_3PHASE/StdPeriph_Driver/inc" -I"D:/GIT/GitHub/STM32_PWM_3PHASE/STM32_PWM_3PHASE/inc" -I"D:/GIT/GitHub/STM32_PWM_3PHASE/STM32_PWM_3PHASE/CMSIS/device" -I"D:/GIT/GitHub/STM32_PWM_3PHASE/STM32_PWM_3PHASE/CMSIS/core" -O0 -g3 -Wall -fmessage-length=0 -ffunction-sections -c -MMD -MP -MF"src/GPIO.d" -MT"src/GPIO.o" -o "src/GPIO.o" "../src/GPIO.c"
+Finished building: ../src/GPIO.c
  
 Building target: STM32_PWM_3PHASE.elf
 Invoking: MCU GCC Linker
@@ -16,8 +16,5 @@ Generating binary and Printing size information:
 arm-none-eabi-objcopy -O binary "STM32_PWM_3PHASE.elf" "STM32_PWM_3PHASE.bin"
 arm-none-eabi-size "STM32_PWM_3PHASE.elf"
    text	   data	    bss	    dec	    hex	filename
-   6528	   1096	   3388	  11012	   2b04	STM32_PWM_3PHASE.elf
+   7404	   1096	   3388	  11888	   2e70	STM32_PWM_3PHASE.elf
  
-01:22:38 **** Incremental Build of configuration Debug for project STM32_PWM_3PHASE ****
-make -j4 all 
-make: Nothing to be done for 'all'.

@@ -74,9 +74,9 @@ void USART2_IRQHandler(void)
 
 	 if(temp & USART_SR_TC)
 	 {
-		 USART2->CR1 	&= 	~(USART_CR1_TCIE); 		// выключаем прерывание по завершении передачи. Зачем? ... (злесь нужено включать приёмник, а в сварочнике тоже)
+		 USART2->CR1 	&= 	~(USART_CR1_TCIE); 		// выключаем прерывание по завершении передачи. Зачем? ... (злесь нужено включать приёмник)
 
-		 //GPIOC->BSRR =  GPIO_BSRR_BR12;				// записать 0 в GPIOA.12		// слушаем
+		 GPIOA->BSRR =  GPIO_BSRR_BR1;					// записать 0 в GPIOA.1. слушаем
 
 		return;
 	 }
@@ -377,16 +377,15 @@ void Modbus_slave(void)
 			case 2:
 			{
 
+				GPIOA->BSRR =  GPIO_BSRR_BS1;					// Ставим еденицу, переводим линию в передачу.
 
-				//GPIOC->BSRR =  GPIO_BSRR_BS12;
+				buffer_index=0;									// Сбрасываем индекс
 
-				buffer_index=0;				// Сбрасываем индекс
-
-				USART2->DR = array_modbas_out[0];		// Отправляем первый байт из массива для отправки
-				USART2->CR1 	|= 	USART_CR1_TXEIE;		// включаем прерывание по опустошению души
+				USART2->DR = array_modbas_out[0];				// Отправляем первый байт из массива для отправки
+				USART2->CR1 	|= 	USART_CR1_TXEIE;			// включаем прерывание по опустошению души
 
 
-				swith_modbas = 0; 			// сбрасываем свич в дефолт и не заходим сюда
+				swith_modbas = 0; 								// сбрасываем свич в дефолт и не заходим сюда
 			}  // скобочка второго кейса
 			break;
 

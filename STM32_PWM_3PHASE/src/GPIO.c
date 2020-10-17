@@ -12,6 +12,10 @@ void init_GPIO(void)
 	RCC->APB2ENR |= RCC_APB2ENR_IOPEEN;	  // Разрешить тактирование GPIOE
 
 
+	//RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO, ENABLE);
+
+
+
 	//Конфигурирование GPIOC.13	красный светик на плате
 	GPIOC->CRH &= ~GPIO_CRH_MODE13;   			// очистить разряды MODE
 	GPIOC->CRH &= ~GPIO_CRH_CNF13;    			// очистить разряды CNF
@@ -39,6 +43,8 @@ void init_GPIO(void)
 	RCC->APB2ENR |=   RCC_APB2ENR_AFIOEN;				// тактирование альтернативных функций GPIO
 	RCC->APB1ENR |=   RCC_APB1ENR_USART2EN;             // тактирование USART2
 
+
+	AFIO->MAPR|=AFIO_MAPR_SWJ_CFG_JTAGDISABLE;			// отключаем JTAG. Освобождаем пины для светодиодов.
 
 	//Конфигурирование GPIOA.0							// Isens - вход с токового датчика
 	GPIOA->CRL &= ~GPIO_CRL_MODE0;   					// очистить разряды MODE

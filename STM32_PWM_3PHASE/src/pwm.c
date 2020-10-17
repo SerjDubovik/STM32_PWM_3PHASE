@@ -112,12 +112,16 @@ void TIM3_IRQHandler (void)									// обработчик таймера для расчёта частоты ча
 			if(triger == 0)
 			{
 				triger = 1;
-				GPIOC->BSRR =  GPIO_BSRR_BR13;   // = 0
+				GPIOA->BSRR =  GPIO_BSRR_BR15;  //GPIOA.15=0
+				GPIOB->BSRR =  GPIO_BSRR_BS3;  //GPIOB.3=1
+
 			}
 			else
 			{
 				triger = 0;
-				GPIOC->BSRR =  GPIO_BSRR_BS13;   // = 1
+				GPIOA->BSRR =  GPIO_BSRR_BS15;  //GPIOA.15=1
+				GPIOB->BSRR =  GPIO_BSRR_BR3;  //GPIOB.3=0
+
 			}
 		}
 

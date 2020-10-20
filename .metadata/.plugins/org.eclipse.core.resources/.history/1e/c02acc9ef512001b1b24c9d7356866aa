@@ -18,6 +18,13 @@ int main(void)
     init_pwm();
     init_adc();
 
+
+
+
+
+
+
+
 	for(;;)
 	{
 

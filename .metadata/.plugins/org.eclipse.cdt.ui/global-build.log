@@ -1,10 +1,16 @@
-17:46:14 **** Incremental Build of configuration Debug for project STM32_PWM_3PHASE ****
+20:01:38 **** Incremental Build of configuration Debug for project STM32_PWM_3PHASE ****
 make -j4 all 
+Building file: ../src/adc.c
 Building file: ../src/main.c
+Invoking: MCU GCC Compiler
 Invoking: MCU GCC Compiler
 D:\GIT\GitHub\STM32_PWM_3PHASE\STM32_PWM_3PHASE\Debug
 arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft -DSTM32 -DSTM32F1 -DSTM32F103C8Tx -DDEBUG -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER -I"D:/GIT/GitHub/STM32_PWM_3PHASE/STM32_PWM_3PHASE/StdPeriph_Driver/inc" -I"D:/GIT/GitHub/STM32_PWM_3PHASE/STM32_PWM_3PHASE/inc" -I"D:/GIT/GitHub/STM32_PWM_3PHASE/STM32_PWM_3PHASE/CMSIS/device" -I"D:/GIT/GitHub/STM32_PWM_3PHASE/STM32_PWM_3PHASE/CMSIS/core" -O0 -g3 -Wall -fmessage-length=0 -ffunction-sections -c -MMD -MP -MF"src/main.d" -MT"src/main.o" -o "src/main.o" "../src/main.c"
+D:\GIT\GitHub\STM32_PWM_3PHASE\STM32_PWM_3PHASE\Debug
+arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft -DSTM32 -DSTM32F1 -DSTM32F103C8Tx -DDEBUG -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER -I"D:/GIT/GitHub/STM32_PWM_3PHASE/STM32_PWM_3PHASE/StdPeriph_Driver/inc" -I"D:/GIT/GitHub/STM32_PWM_3PHASE/STM32_PWM_3PHASE/inc" -I"D:/GIT/GitHub/STM32_PWM_3PHASE/STM32_PWM_3PHASE/CMSIS/device" -I"D:/GIT/GitHub/STM32_PWM_3PHASE/STM32_PWM_3PHASE/CMSIS/core" -O0 -g3 -Wall -fmessage-length=0 -ffunction-sections -c -MMD -MP -MF"src/adc.d" -MT"src/adc.o" -o "src/adc.o" "../src/adc.c"
 Finished building: ../src/main.c
+ 
+Finished building: ../src/adc.c
  
 Building target: STM32_PWM_3PHASE.elf
 Invoking: MCU GCC Linker
@@ -16,14 +22,11 @@ Generating binary and Printing size information:
 arm-none-eabi-objcopy -O binary "STM32_PWM_3PHASE.elf" "STM32_PWM_3PHASE.bin"
 arm-none-eabi-size "STM32_PWM_3PHASE.elf"
    text	   data	    bss	    dec	    hex	filename
-   8404	   1096	   3724	  13224	   33a8	STM32_PWM_3PHASE.elf
+   8416	   1096	   3724	  13236	   33b4	STM32_PWM_3PHASE.elf
  
-17:46:25 **** Incremental Build of configuration Debug for project STM32_PWM_3PHASE ****
+20:01:46 **** Incremental Build of configuration Debug for project STM32_PWM_3PHASE ****
 make -j4 all 
 make: Nothing to be done for 'all'.
-17:46:51 **** Incremental Build of configuration Debug for project STM32_PWM_3PHASE ****
-make -j4 all 
-make: Nothing to be done for 'all'.
-17:48:44 **** Incremental Build of configuration Debug for project STM32_PWM_3PHASE ****
+20:02:18 **** Incremental Build of configuration Debug for project STM32_PWM_3PHASE ****
 make -j4 all 
 make: Nothing to be done for 'all'.

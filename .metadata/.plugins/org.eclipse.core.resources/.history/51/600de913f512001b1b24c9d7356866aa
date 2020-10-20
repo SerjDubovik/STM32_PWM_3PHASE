@@ -1,0 +1,21 @@
+#include "stm32f10x.h"
+#include "adc.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+void init_adc()
+{
+
+
+}
+

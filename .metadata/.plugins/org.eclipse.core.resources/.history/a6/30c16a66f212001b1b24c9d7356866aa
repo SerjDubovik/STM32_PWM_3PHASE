@@ -1,0 +1,190 @@
+#include "stm32f10x.h"
+#include "modbus.h"
+#include "GPIO.h"
+#include "pwm.h"
+
+
+
+#define ADC1_DR_Address    				((u32)0x40012400+0x4c)		// Адрес регистра результата преобразования АЦП
+#define DMA_BUFF_SIZE 					160							// Размер буфера
+
+
+unsigned short	array_mb[100]			= {};						// массив для хранения принятых/переданных слов
+
+
+unsigned short dma_adc[DMA_BUFF_SIZE] 	= {}; 						// буферный массив для приёма данных из ацп через дма
+unsigned long adc_buf[4] = {}; 										// буферный массив для усреднения
+
+
+
+
+
+void ADC1_2_IRQHandler(void)
+{
+    if(ADC1->SR & ADC_SR_EOC)
+	{
+
+	}
+
+	ADC1->SR=0;											//сбрасываем все флаги в регистре статуса
+}
+
+
+
+void DMA1_Channel1_IRQHandler(void)
+{
+	uint32_t buf =  DMA1->ISR;
+
+
+
+
+
+	if( DMA1->ISR & DMA_ISR_HTIF1)						// если пришёл полубуфер буфер
+	{
+		adc_buf[0] = 0;
+		adc_buf[1] = 0;
+		adc_buf[2] = 0;
+		adc_buf[3] = 0;
+
+		for(int i = 0, count = 0; i < 20; i++)
+		{
+			adc_buf[0] += dma_adc[count++];
+			adc_buf[1] += dma_adc[count++];
+			adc_buf[2] += dma_adc[count++];
+			adc_buf[3] += dma_adc[count++];
+		}
+
+		array_mb[9]		= adc_buf[0] / 20;
+		array_mb[10]	= adc_buf[1] / 20;
+		array_mb[11]	= adc_buf[2] / 20;
+		array_mb[12]	= adc_buf[3] / 20;
+	}
+
+
+
+
+	if( DMA1->ISR & DMA_ISR_TCIF1)						// если пришёл полный буфер
+	{
+
+		adc_buf[0] = 0;
+		adc_buf[1] = 0;
+		adc_buf[2] = 0;
+		adc_buf[3] = 0;
+
+		for(int i = 0, count = 80; i < 20; i++)
+		{
+			adc_buf[0] += dma_adc[count++];
+			adc_buf[1] += dma_adc[count++];
+			adc_buf[2] += dma_adc[count++];
+			adc_buf[3] += dma_adc[count++];
+
+		}
+
+		array_mb[9]		= adc_buf[0] / 20;
+		array_mb[10]	= adc_buf[1] / 20;
+		array_mb[11]	= adc_buf[2] / 20;
+		array_mb[12]	= adc_buf[3] / 20;
+
+	}
+
+	DMA1->IFCR = buf;
+}
+
+
+
+
+
+
+int main(void)
+{
+
+
+	init_GPIO();
+    init_modbus();
+    init_pwm();
+
+
+
+
+	RCC->APB2ENR |= RCC_APB2ENR_ADC1EN; 				// Включить тактирование АЦП
+
+	//Настроить делитель для ADC
+	RCC->CFGR &= ~RCC_CFGR_ADCPRE;             			//Очистка битов предделителя "ADC Prescaler"
+	RCC->CFGR |=  RCC_CFGR_ADCPRE_DIV6;        			//Установить "ADC Prescaler" равным 6
+
+	ADC1->CR1 = 0; 										// Обнулить регистр управления
+	ADC1->SQR1 = 0; 									// Обнулить регистр SQR1
+	ADC1->CR2 |= ADC_CR2_CAL; 							// Пуск калибровки
+
+	while (!(ADC1->CR2 & ADC_CR2_CAL)){}; 				// Ждать окончания калибровки
+
+
+
+
+	RCC->AHBENR |= RCC_AHBENR_DMA1EN; 					// Разрешаем тактирование первого DMA модуля
+	DMA1_Channel1->CPAR = ADC1_DR_Address; 				// Указываем адрес периферии - регистр результата преобразования АЦП для регулярных каналов
+	DMA1_Channel1->CMAR = (uint32_t)dma_adc; 			// Задаем адрес памяти - базовый адрес массива в RAM // dma_adc array_mb
+	DMA1_Channel1->CCR &= ~DMA_CCR1_DIR; 				// Указываем направление передачи данных, из периферии в память
+	DMA1_Channel1->CNDTR = DMA_BUFF_SIZE; 				// Количество пересылаемых значений
+	DMA1_Channel1->CCR &= ~DMA_CCR1_PINC; 				// Адрес периферии не инкрементируем после каждой пересылки
+	DMA1_Channel1->CCR |= DMA_CCR1_MINC; 				// Адрес памяти инкрементируем после каждой пересылки.
+	DMA1_Channel1->CCR |= DMA_CCR1_PSIZE_0; 			// Размерность данных периферии - 16 бит
+	DMA1_Channel1->CCR |= DMA_CCR1_MSIZE_0; 			// Размерность данных памяти - 16 бит
+	DMA1_Channel1->CCR |= DMA_CCR1_PL; 					// Приоритет - очень высокий
+	DMA1_Channel1->CCR |= DMA_CCR1_CIRC; 				// Разрешаем работу DMA в циклическом режиме
+	DMA1_Channel1->CCR |= DMA_CCR1_EN; 					// Разрешаем работу 1-го канала DMA
+
+
+
+														// GPIOA.0	 Isens 	- вход с токового датчика					// 0
+														// GPIOA.4	 Uzpt 	- вход, напряжение звена постоянного тока	// 100
+														// GPIOA.5	 Un 	- выходное напряжение. обратная связь		// 101
+														// GPIOA.6	 Ibreak - ток отсечки. защитная функция.			// 110
+
+	ADC1->SQR1 =  ADC_SQR1_L_1 | ADC_SQR1_L_0;			// 4 регулярных каналов для сканирования
+	ADC1->SQR3 = ADC_SQR3_SQ2_2 | ADC_SQR3_SQ3_2 | ADC_SQR3_SQ3_0 | ADC_SQR3_SQ4_0 | ADC_SQR3_SQ4_2 |  ADC_SQR3_SQ4_1;
+
+	ADC1->SMPR2 = 0x00007FFF;							// время выборки 5-и каналов с начала
+
+
+	//NVIC->ISER[0] |= NVIC_ISER_SETENA_18;				// разрешаем прерывание от АЦП
+	//NVIC_EnableIRQ (ADC1_2_IRQn);						// разрешаем прерывание от АЦП
+
+	//разрешаем прерывания по окончанию преобразования
+	ADC1->CR1 |= ADC_CR1_EOCIE;
+
+	ADC1->CR2 = ADC_CR2_EXTSEL; 						// Выбрать источником запуска разряд SWSTART
+	ADC1->CR2 |= ADC_CR2_EXTTRIG; 						// Разрешить внешний запуск регулярного канала
+	ADC1->CR2 |= ADC_CR2_CONT; 							// Включить режим непрерывного преобразования
+
+	ADC1->CR1 |= ADC_CR1_SCAN; 							// Включить режим сканирования нескольких каналов
+
+	//ADC1->CR1 |= ADC_CR1_DISCEN;						// Прерывистый режим
+	ADC1->CR2 |= ADC_CR2_ADON; 							// Включить АЦП
+	ADC1->CR2 |= ADC_CR2_ADON; 							// Включить АЦП
+	ADC1->CR2 |= ADC_CR2_SWSTART;  						// Пуск преобразования регулярной группы
+
+	ADC1->CR2 |=  ADC_CR2_DMA;                   		// Bit 8 DMA: Direct memory access mode (for single ADC mode)
+
+
+	NVIC_EnableIRQ (DMA1_Channel1_IRQn);				// разрешаем прерывание первого канала дма
+	DMA1_Channel1->CCR |= DMA_CCR1_TCIE;				// разрешаем прерывание по заполнению буфера
+	DMA1_Channel1->CCR |= DMA_CCR1_HTIE;				// разрешаем прерывание по заполнению половины буфера
+
+
+
+
+
+
+
+	for(;;)
+	{
+
+
+
+		array_mb[8]++;
+
+		Modbus_slave();
+
+	} // скобка бесконечного цикла
+} // скобка мейна

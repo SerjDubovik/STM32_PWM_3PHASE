@@ -1,0 +1,25 @@
+#include "stm32f10x.h"
+#include "adc.h"
+#include "modbus.h"
+
+
+
+
+
+
+extern unsigned short	array_mb[leth_array];				// массив для хранения принятых/переданных слов
+
+unsigned short dma_adc[DMA_BUFF_SIZE] 	= {}; 						// буферный массив для приёма данных из ацп через дма
+unsigned long adc_buf[4] = {}; 										// буферный массив для усреднения
+
+
+
+
+
+
+void init_adc()
+{
+
+
+}
+

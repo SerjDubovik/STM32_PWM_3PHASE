@@ -5,6 +5,6 @@
 #define off			0
 
 void init_GPIO(void);
-void relay_1(unsigned int set);
+void relay_1
 
 #endif // SRC_GPIO

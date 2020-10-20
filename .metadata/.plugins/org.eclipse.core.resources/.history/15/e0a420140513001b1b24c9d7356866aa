@@ -113,7 +113,7 @@ void init_GPIO(void)
 	GPIOA->CRH |=  GPIO_CRH_MODE11;  					// выход, 50MHz
 	GPIOA->CRH &= ~GPIO_CRH_CNF11;   					// общего назначени€, симетричный
 
-	// онфигурирование GPIOA.12							// relay2 - выход управлени€ реле 2
+	// онфигурирование GPIOA.12							// relay1 - выход управлени€ реле 2
 	GPIOA->CRH &= ~GPIO_CRH_MODE12;  					// очистить разр€ды MODE
 	GPIOA->CRH &= ~GPIO_CRH_CNF12;   					// очистить разр€ды CNF
 	GPIOA->CRH |=  GPIO_CRH_MODE12;  					// выход, 50MHz
@@ -199,31 +199,7 @@ void init_GPIO(void)
 
 
 
-void relay_1(unsigned int set)
-{
-	if(set == on)
-	{
-		GPIOA->BSRR =  GPIO_BSRR_BS11;  				// GPIOA.11=1
-	}
-	if(set == off)
-	{
-		GPIOA->BSRR =  GPIO_BSRR_BR11;  				// GPIOA.11=0
-	}
-}
 
-
-
-void relay_2(unsigned int set)
-{
-	if(set == on)
-	{
-		GPIOA->BSRR =  GPIO_BSRR_BS11;  				// GPIOA.11=1
-	}
-	if(set == off)
-	{
-		GPIOA->BSRR =  GPIO_BSRR_BR11;  				// GPIOA.11=0
-	}
-}
 
 
 

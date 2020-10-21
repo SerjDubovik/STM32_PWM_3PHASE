@@ -10,7 +10,7 @@ unsigned short	array_mb[100]			= {};						// массив дл€ хранени€ прин€тых/переда
 
 unsigned short	state_machine			= 0;						// переменна€ состо€ни€ системы. выбор алгоритма работмы программы
 																	// 0 - ожидает выбор работы от пользовател€. работает телеметри€ по модбасу.
-																	// 1 - переход к выполнению выбранного режима работы.
+																	//
 
 
 int main(void)
@@ -27,36 +27,19 @@ int main(void)
 
 
 
-    array_mb[0] = 0x8000;											// 15 бит - 1. √отов принимать команды пользовател€
+
 
 	for(;;)
 	{
 
-
-		switch (state_machine)
+		switch(state machine)
 		{
 
-			case 0:
-			{
-				if(array_mb[2] == 1)
-				{
-					array_mb[2] = 0;
-				}
+		case(0):
+		{
 
-				if(array_mb[2] == 2)
-				{
-					array_mb[2] = 0;
-				}
+		}
 
-				if(array_mb[2] == 3)
-				{
-					array_mb[2] = 0;
-				}
-			}
-			break;
-
-			default:
-			break;
 		} // скобка свича
 
 

@@ -38,20 +38,7 @@ int main(void)
 
 			case 0:
 			{
-				if(array_mb[2] == 1)
-				{
-					array_mb[2] = 0;
-				}
 
-				if(array_mb[2] == 2)
-				{
-					array_mb[2] = 0;
-				}
-
-				if(array_mb[2] == 3)
-				{
-					array_mb[2] = 0;
-				}
 			}
 			break;
 

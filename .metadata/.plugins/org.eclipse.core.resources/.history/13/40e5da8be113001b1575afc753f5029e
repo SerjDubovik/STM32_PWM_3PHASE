@@ -27,31 +27,18 @@ int main(void)
 
 
 
-    array_mb[0] = 0x8000;											// 15 бит - 1. √отов принимать команды пользовател€
+
 
 	for(;;)
 	{
 
 
-		switch (state_machine)
+		switch(state machine)
 		{
 
 			case 0:
 			{
-				if(array_mb[2] == 1)
-				{
-					array_mb[2] = 0;
-				}
 
-				if(array_mb[2] == 2)
-				{
-					array_mb[2] = 0;
-				}
-
-				if(array_mb[2] == 3)
-				{
-					array_mb[2] = 0;
-				}
 			}
 			break;
 

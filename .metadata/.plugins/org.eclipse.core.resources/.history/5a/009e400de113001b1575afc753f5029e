@@ -2,15 +2,11 @@
 #include "modbus.h"
 #include "GPIO.h"
 #include "pwm.h"
+#include "adc.h"
 
 
 
-
-
-
-unsigned short	array_mb[100]			= {};				// массив для хранения принятых/переданных слов
-
-
+unsigned short	array_mb[100]			= {};						// массив для хранения принятых/переданных слов
 
 
 int main(void)
@@ -20,9 +16,10 @@ int main(void)
 	init_GPIO();
     init_modbus();
     init_pwm();
+    init_adc();
 
-
-
+    relay_1(off);
+    relay_2(off);
 
 	for(;;)
 	{

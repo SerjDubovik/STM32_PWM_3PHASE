@@ -51,10 +51,10 @@ void DMA1_Channel1_IRQHandler(void)
 			adc_buf[3] += dma_adc[count++];
 		}
 
-		array_mb[13]	= adc_buf[0] / 20;
-		array_mb[14]	= adc_buf[1] / 20;
-		array_mb[15]	= adc_buf[2] / 20;
-		array_mb[16]	= adc_buf[3] / 20;
+		array_mb[9]		= adc_buf[0] / 20;
+		array_mb[10]	= adc_buf[1] / 20;
+		array_mb[11]	= adc_buf[2] / 20;
+		array_mb[12]	= adc_buf[3] / 20;
 	}
 
 
@@ -77,10 +77,10 @@ void DMA1_Channel1_IRQHandler(void)
 
 		}
 
-		array_mb[13]	= adc_buf[0] / 20;
-		array_mb[14]	= adc_buf[1] / 20;
-		array_mb[15]	= adc_buf[2] / 20;
-		array_mb[16]	= adc_buf[3] / 20;
+		array_mb[9]		= adc_buf[0] / 20;
+		array_mb[10]	= adc_buf[1] / 20;
+		array_mb[11]	= adc_buf[2] / 20;
+		array_mb[12]	= adc_buf[3] / 20;
 
 	}
 
@@ -132,9 +132,9 @@ void init_adc()
 														// GPIOA.6	 Ibreak - ток отсечки. защитна€ функци€.			// 110
 
 	ADC1->SQR1 =  ADC_SQR1_L_1 | ADC_SQR1_L_0;			// 4 регул€рных каналов дл€ сканировани€
-	ADC1->SQR3 = ADC_SQR3_SQ2_2 | ADC_SQR3_SQ3_2 | ADC_SQR3_SQ3_0 | ADC_SQR3_SQ4_2 |  ADC_SQR3_SQ4_1;
+	ADC1->SQR3 = ADC_SQR3_SQ2_2 | ADC_SQR3_SQ3_2 | ADC_SQR3_SQ3_0 | ADC_SQR3_SQ4_0 | ADC_SQR3_SQ4_2 |  ADC_SQR3_SQ4_1;
 
-	ADC1->SMPR2 = 0x00000FFF;							// врем€ выборки 4-х каналов с начала
+	ADC1->SMPR2 = 0x00007FFF;							// врем€ выборки 5-и каналов с начала
 
 
 	//NVIC->ISER[0] |= NVIC_ISER_SETENA_18;				// разрешаем прерывание от ј÷ѕ

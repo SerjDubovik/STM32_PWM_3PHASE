@@ -15,6 +15,14 @@ void init_GPIO(void)
 	//RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO, ENABLE);
 
 
+
+	//Конфигурирование GPIOC.13	красный светик на плате
+	GPIOC->CRH &= ~GPIO_CRH_MODE13;   			// очистить разряды MODE
+	GPIOC->CRH &= ~GPIO_CRH_CNF13;    			// очистить разряды CNF
+	GPIOC->CRH |=  GPIO_CRH_MODE13;   			// выход, 50MHz
+	GPIOC->CRH &= ~GPIO_CRH_CNF13;    			// общего назначения, симметричный
+
+
 	/////////////////////////
 	// Переферия
 	/*
@@ -37,8 +45,6 @@ void init_GPIO(void)
 
 
 	AFIO->MAPR|=AFIO_MAPR_SWJ_CFG_JTAGDISABLE;			// отключаем JTAG. Освобождаем пины для светодиодов.
-
-
 
 	//Конфигурирование GPIOA.0							// Isens - вход с токового датчика
 	GPIOA->CRL &= ~GPIO_CRL_MODE0;   					// очистить разряды MODE
@@ -193,8 +199,6 @@ void init_GPIO(void)
 
 
 
-
-
 void relay_1(unsigned int set)
 {
 	if(set == on)
@@ -221,30 +225,5 @@ void relay_2(unsigned int set)
 	}
 }
 
-
-void blue_led(unsigned int set)
-{
-	if(set == on)
-	{
-		GPIOA->BSRR =  GPIO_BSRR_BS15;  //GPIOA.15=1
-	}
-	if(set == off)
-	{
-		GPIOA->BSRR =  GPIO_BSRR_BR15;  //GPIOA.15=0
-	}
-}
-
-
-void red_led(unsigned int set)
-{
-	if(set == on)
-	{
-		GPIOB->BSRR =  GPIO_BSRR_BS3;  //GPIOB.3=1
-	}
-	if(set == off)
-	{
-		GPIOB->BSRR =  GPIO_BSRR_BR3;  //GPIOB.3=0
-	}
-}
 
 

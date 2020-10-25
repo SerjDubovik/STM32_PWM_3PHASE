@@ -26,7 +26,7 @@ int main(void)
     relay_2(off);
 
     blue_led(off);
-    red_led(off);
+    red_led(on);
 
 
 
@@ -41,24 +41,20 @@ int main(void)
 
 			case 0:
 			{
-
 				if(array_mb[2] == 1)
 				{
 					array_mb[2] = 0;
 				}
-
 
 				if(array_mb[2] == 2)
 				{
 					array_mb[2] = 0;
 				}
 
-
 				if(array_mb[2] == 3)
 				{
 					array_mb[2] = 0;
 				}
-
 			}
 			break;
 

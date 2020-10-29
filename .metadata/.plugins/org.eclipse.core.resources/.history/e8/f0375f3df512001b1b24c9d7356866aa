@@ -1,9 +1,0 @@
-#ifndef SRC_ADC
-#define SRC_ADC
-
-
-
-void init_adc(void);
-
-
-#endif // SRC_ADC

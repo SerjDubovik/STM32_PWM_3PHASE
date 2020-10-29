@@ -1,7 +1,6 @@
 #include "stm32f10x.h"
 #include "pwm.h"
 
-// переменные для трёхфазного синуса
 
 const float sin_mass[180] = {
 
@@ -38,20 +37,13 @@ unsigned short step_PWM_3 = 240;
 float factor_voltage = 1.0f;								// коэффициент для задания амплитуды синуса
 
 
-
-// переменные для PP режима управления (однотактные/двутактные преобразователи)
-
-unsigned short PWM_PP	 		= 0;						// текушее значение шим для управления выходом
-unsigned short TMR_T 			= period;					//	4500 - 16kHz COMPL_MODE		// 360 - 100 kHz PP_MODE
-unsigned short deadtime_PP 		= DEADTIME;
-
 // всякие переменные
 unsigned long count_test = 0;
 int triger = 0;
 
 
 
-void init_pwm_3phase(void)
+void init_pwm(void)
 {
 	init_timer3();
 
@@ -74,27 +66,6 @@ void init_pwm_3phase(void)
     TIM1->CCR3=PWM_3;
 
 }
-
-void init_pwm_PP_mode(void)
-{
-    TIM1->CCMR1=TIM_CCMR1_OC1M_2 | TIM_CCMR1_OC1M_1 | TIM_CCMR1_OC1M_0 | TIM_CCMR1_OC1PE | TIM_CCMR1_OC2M_2 | TIM_CCMR1_OC2M_1 | TIM_CCMR1_OC2PE;
-    TIM1->CCER=TIM_CCER_CC1E | TIM_CCER_CC2E;
-    TIM1->BDTR=TIM_BDTR_MOE;
-
-    TIM1->CCR1=TMR_T - PWM_PP;
-    TIM1->CCR2=PWM_PP;
-    TIM1->ARR=TMR_T;
-
-    TIM1->CR1=TIM_CR1_ARPE | TIM_CR1_CMS_1 | TIM_CR1_CMS_0;
-    TIM1->CR1|=TIM_CR1_CEN;
-    TIM1->EGR=TIM_EGR_UG;
-}
-
-void pwm_PP_stop(void)
-{
-	PWM_PP = 0;
-}
-
 
 void init_timer3(void)						// Настройка таймера 2. Общий для отсчётов задержек
 {
@@ -125,7 +96,7 @@ void TIM3_IRQHandler (void)									// обработчик таймера для расчёта частоты ча
 
 
 
-	//	test_pwm_step();									// расчёт синуса табличным методом
+		test_pwm_step();
 
 
 /*

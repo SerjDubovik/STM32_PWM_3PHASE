@@ -65,11 +65,6 @@ void DMA1_Channel1_IRQHandler(void)
 		array_mb[10]	= array_mb[14] * K_Uzpt;
 		array_mb[11]	= array_mb[15] * K_Un;
 		array_mb[12]	= array_mb[16] * K_Ibreak;
-
-		Isens			= array_mb[9];
-		U_zpt			= array_mb[10];
-		Un				= array_mb[11];
-		Ibreak			= array_mb[12];
 	}
 
 

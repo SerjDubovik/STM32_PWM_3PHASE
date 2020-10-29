@@ -1,6 +1,6 @@
-01:04:02 **** Incremental Build of configuration Debug for project STM32_PWM_3PHASE ****
+13:09:08 **** Incremental Build of configuration Debug for project STM32_PWM_3PHASE ****
 make -j4 all 
 make: Nothing to be done for 'all'.
 
-01:04:02 Build Finished (took 685ms)
+13:09:08 Build Finished (took 559ms)
 

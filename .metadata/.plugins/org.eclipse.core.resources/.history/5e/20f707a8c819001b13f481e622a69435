@@ -9,11 +9,6 @@
 
 extern unsigned short	array_mb[leth_array];				// массив для хранения принятых/переданных слов
 
-extern unsigned short Isens;
-extern unsigned short U_zpt;
-extern unsigned short Un;
-extern unsigned short Ibreak;
-
 unsigned short dma_adc[DMA_BUFF_SIZE] 	= {}; 						// буферный массив для приёма данных из ацп через дма
 unsigned long adc_buf[4] = {}; 										// буферный массив для усреднения
 
@@ -65,11 +60,6 @@ void DMA1_Channel1_IRQHandler(void)
 		array_mb[10]	= array_mb[14] * K_Uzpt;
 		array_mb[11]	= array_mb[15] * K_Un;
 		array_mb[12]	= array_mb[16] * K_Ibreak;
-
-		Isens			= array_mb[9];
-		U_zpt			= array_mb[10];
-		Un				= array_mb[11];
-		Ibreak			= array_mb[12];
 	}
 
 
@@ -101,11 +91,6 @@ void DMA1_Channel1_IRQHandler(void)
 		array_mb[10]	= array_mb[14] * K_Uzpt;
 		array_mb[11]	= array_mb[15] * K_Un;
 		array_mb[12]	= array_mb[16] * K_Ibreak;
-
-		Isens			= array_mb[9];
-		U_zpt			= array_mb[10];
-		Un				= array_mb[11];
-		Ibreak			= array_mb[12];
 
 	}
 

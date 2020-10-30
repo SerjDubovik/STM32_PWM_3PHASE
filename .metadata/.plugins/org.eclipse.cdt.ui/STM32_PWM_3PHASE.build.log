@@ -1,6 +1,23 @@
-23:58:20 **** Incremental Build of configuration Debug for project STM32_PWM_3PHASE ****
+15:38:12 **** Incremental Build of configuration Debug for project STM32_PWM_3PHASE ****
 make -j4 all 
-make: Nothing to be done for 'all'.
+Building file: ../src/main.c
+Invoking: MCU GCC Compiler
+D:\GIT\GitHub\STM32_PWM_3PHASE\STM32_PWM_3PHASE\Debug
+arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft -DSTM32 -DSTM32F1 -DSTM32F103C8Tx -DDEBUG -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER -I"D:/GIT/GitHub/STM32_PWM_3PHASE/STM32_PWM_3PHASE/StdPeriph_Driver/inc" -I"D:/GIT/GitHub/STM32_PWM_3PHASE/STM32_PWM_3PHASE/inc" -I"D:/GIT/GitHub/STM32_PWM_3PHASE/STM32_PWM_3PHASE/CMSIS/device" -I"D:/GIT/GitHub/STM32_PWM_3PHASE/STM32_PWM_3PHASE/CMSIS/core" -O0 -g3 -Wall -fmessage-length=0 -ffunction-sections -c -MMD -MP -MF"src/main.d" -MT"src/main.o" -o "src/main.o" "../src/main.c"
+Finished building: ../src/main.c
+ 
+Building target: STM32_PWM_3PHASE.elf
+Invoking: MCU GCC Linker
+arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -mfloat-abi=soft -T"D:/GIT/GitHub/STM32_PWM_3PHASE/STM32_PWM_3PHASE/LinkerScript.ld" -Wl,-Map=output.map -Wl,--gc-sections -o "STM32_PWM_3PHASE.elf" @"objects.list"   -lm
+Finished building target: STM32_PWM_3PHASE.elf
+ 
+make --no-print-directory post-build
+Generating binary and Printing size information:
+arm-none-eabi-objcopy -O binary "STM32_PWM_3PHASE.elf" "STM32_PWM_3PHASE.bin"
+arm-none-eabi-size "STM32_PWM_3PHASE.elf"
+   text	   data	    bss	    dec	    hex	filename
+   7720	   1104	   3748	  12572	   311c	STM32_PWM_3PHASE.elf
+ 
 
-23:58:20 Build Finished (took 617ms)
+15:38:14 Build Finished (took 2s.103ms)
 

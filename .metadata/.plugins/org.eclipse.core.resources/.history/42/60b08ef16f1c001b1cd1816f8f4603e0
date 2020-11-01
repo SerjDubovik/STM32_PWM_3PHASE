@@ -22,11 +22,7 @@ unsigned short U_zpt;
 unsigned short Un;
 unsigned short Ibreak;
 
-unsigned short v_DEADTIME;
-
 unsigned short	buf_mbus1				= 0;
-
-
 
 
 
@@ -48,17 +44,10 @@ int main(void)
 
 
 
-    array_mb[0] = 0x8000;								// 15 бит - 1. Готов принимать команды пользователя
+    array_mb[0] = 0x8000;											// 15 бит - 1. Готов принимать команды пользователя
 
-
-    v_threshold_U_zpt 	= 	threshold_U_zpt;
     array_mb[21] 		= 	threshold_U_zpt;
-
-    v_DEADTIME	 = DEADTIME;
-    array_mb[25] = DEADTIME;							// Текущий дедтайм (ед).
-
-    array_mb[23] = period;								// Текущая частота (кГц).	// 360 ед - 100 кГц
-
+    v_threshold_U_zpt 	= 	threshold_U_zpt;
 
 
 	for(;;)

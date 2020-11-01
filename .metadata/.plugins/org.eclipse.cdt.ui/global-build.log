@@ -1,4 +1,4 @@
-15:38:12 **** Incremental Build of configuration Debug for project STM32_PWM_3PHASE ****
+20:38:57 **** Incremental Build of configuration Debug for project STM32_PWM_3PHASE ****
 make -j4 all 
 Building file: ../src/main.c
 Invoking: MCU GCC Compiler
@@ -18,3 +18,9 @@ arm-none-eabi-size "STM32_PWM_3PHASE.elf"
    text	   data	    bss	    dec	    hex	filename
    7720	   1104	   3748	  12572	   311c	STM32_PWM_3PHASE.elf
  
+20:39:03 **** Incremental Build of configuration Debug for project STM32_PWM_3PHASE ****
+make -j4 all 
+make: Nothing to be done for 'all'.
+20:43:27 **** Incremental Build of configuration Debug for project STM32_PWM_3PHASE ****
+make -j4 all 
+make: Nothing to be done for 'all'.

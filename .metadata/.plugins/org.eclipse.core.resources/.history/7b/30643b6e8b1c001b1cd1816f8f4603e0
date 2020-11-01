@@ -55,7 +55,7 @@ int main(void)
 
 
     array_mb[21] = threshold_U_zpt;						// Нижнее пороговое значение напряжения ЗПТ (В).
-    array_mb[25] = get_deadtime_value();				// Текущий дедтайм (ед).
+    array_mb[25] = get_deadtime_value();;				// Текущий дедтайм (ед).
     array_mb[23] = 72000/(period * 2);					// Текущая частота (кГц).	Частота(кГц) = 72 000/(TMR_T * 2)
     array_mb[27] = get_pwm_value();						// Текуший ШИМ.
     array_mb[30] = Isens_threshold;						// Текущее токоограничение (мА).
@@ -137,7 +137,7 @@ int main(void)
 
 
 
-	    if(array_mb[2] == 10)										// порог ЗПТ
+	    if(array_mb[2] == 10)
 	    {
 	    	array_mb[21] = array_mb[22];
 	    	threshold_U_zpt = array_mb[21];
@@ -145,7 +145,7 @@ int main(void)
 	    }
 
 
-	    if(array_mb[2] == 0)										// подтверждение приёма команды. готовность принимать следующую
+	    if(array_mb[2] == 0)
 	    {
 	    	array_mb[3] = 0;
 	    }

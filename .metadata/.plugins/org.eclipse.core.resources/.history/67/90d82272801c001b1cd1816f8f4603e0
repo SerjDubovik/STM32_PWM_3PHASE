@@ -12,9 +12,6 @@ void pwm_PP_stop(void);
 void test_pwm_step(void);
 void init_timer3(void);
 
-unsigned short get_pwm_value();
-unsigned short get_deadtime_value();
-
 
 
 

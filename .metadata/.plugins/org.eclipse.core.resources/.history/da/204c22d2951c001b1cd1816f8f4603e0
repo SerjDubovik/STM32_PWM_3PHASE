@@ -137,7 +137,7 @@ int main(void)
 
 
 
-	    if(array_mb[2] == 10)										// ןמנמד ÇÏÒ
+	    if(array_mb[2] == 10)
 	    {
 	    	array_mb[21] = array_mb[22];
 	    	threshold_U_zpt = array_mb[21];

@@ -5,29 +5,26 @@
 #include "adc.h"
 
 
+#define threshold_U_zpt					200							// порог срабатывания напряжения реле ЗПТ
 
-unsigned short	array_mb[100]						= {};			// массив для хранения принятых/переданных слов
 
-unsigned short	state_machine						= 0;			// переменная состояния системы. выбор алгоритма работмы программы
+unsigned short	array_mb[100]			= {};						// массив для хранения принятых/переданных слов
+
+unsigned short	state_machine			= 0;						// переменная состояния системы. выбор алгоритма работмы программы
 																	// 0 - ожидает выбор работы от пользователя. работает телеметрия по модбасу.
 																	// 1 - переход к выполнению выбранного режима работы.
 
-unsigned short threshold_U_zpt						= 200;			// переменная, для работы с уровнем напряжения ЗПТ
-unsigned short clamp_U_zpt 							= 0;			// защёлка, нужна для исключения отключения реле ЗПТ при просадке напряжения
+unsigned short v_threshold_U_zpt;									// переменная, для работы с уровнем напряжения ЗПТ
+unsigned short clamp_U_zpt 				= 0;						// защёлка, нужна для исключения отключения реле ЗПТ при просадке напряжения
 
 unsigned short Isens;												// переменные внутреннего пользования. маскируют такие же переменные из сетевого массива
 unsigned short U_zpt;
 unsigned short Un;
 unsigned short Ibreak;
 
+unsigned short v_DEADTIME;
 
-unsigned short Isens_threshold						= 33;
-signed short temperature_plate						= 23;
-signed short temperature_plate_threshold			= 60;
-signed short temperature_heater						= 30;
-signed short temperature_heater_threshold			= 100;
-
-unsigned short	buf_mbus1							= 0;
+unsigned short	buf_mbus1				= 0;
 
 
 
@@ -54,19 +51,13 @@ int main(void)
     array_mb[0] = 0x8000;								// 15 бит - 1. Готов принимать команды пользователя
 
 
-    array_mb[21] = threshold_U_zpt;						// Нижнее пороговое значение напряжения ЗПТ (В).
-    array_mb[25] = get_deadtime_value();				// Текущий дедтайм (ед).
-    array_mb[23] = 72000/(period * 2);					// Текущая частота (кГц).	Частота(кГц) = 72 000/(TMR_T * 2)
-    array_mb[27] = get_pwm_value();						// Текуший ШИМ.
-    array_mb[30] = Isens_threshold;						// Текущее токоограничение (мА).
-    array_mb[32] = temperature_plate;					// Температура платы управления (С).
-    array_mb[33] = temperature_plate_threshold;			// Порог платы управления (С).
-    array_mb[35] = temperature_heater;					// Температура радиатора (С).
-    array_mb[36] = temperature_heater_threshold;		// Порог радиатора (С).
+    v_threshold_U_zpt 	= 	threshold_U_zpt;
+    array_mb[21] 		= 	threshold_U_zpt;
 
+    v_DEADTIME	 = DEADTIME;
+    array_mb[25] = DEADTIME;							// Текущий дедтайм (ед).
 
-
-
+    array_mb[23] = 72000/(TMR_T * 2);								// Текущая частота (кГц).	Частота(кГц) = 72 000/(TMR_T * 2)
 
 
 
@@ -80,7 +71,7 @@ int main(void)
 
 		if(buf_mbus1 &= 0x1000)											// проверим 12 бит. если 1 - то пользователь выбрал автономную работу.
 		{
-			if((U_zpt < threshold_U_zpt) && (clamp_U_zpt == 0))
+			if((U_zpt < v_threshold_U_zpt) && (clamp_U_zpt == 0))
 			{
 				array_mb[0] &= ~(0x1000);								// 12 бит - 0. ЗПТ работает не коректно
 				array_mb[0] &= ~(0x4000);								// 14 бит - 0. реле ЗПТ разомкнуто.
@@ -135,20 +126,6 @@ int main(void)
 
 // *****************
 
-
-
-	    if(array_mb[2] == 10)										// порог ЗПТ
-	    {
-	    	array_mb[21] = array_mb[22];
-	    	threshold_U_zpt = array_mb[21];
-	    	array_mb[3] = 1;
-	    }
-
-
-	    if(array_mb[2] == 0)										// подтверждение приёма команды. готовность принимать следующую
-	    {
-	    	array_mb[3] = 0;
-	    }
 
 
 		array_mb[8]++;

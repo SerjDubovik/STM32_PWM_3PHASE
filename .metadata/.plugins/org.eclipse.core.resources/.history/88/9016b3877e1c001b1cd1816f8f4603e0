@@ -43,30 +43,11 @@ float factor_voltage = 1.0f;								// коэффициент дл€ задани€ амплитуды синуса
 
 unsigned short PWM_PP	 		= 0;						// текушее значение шим дл€ управлени€ выходом
 unsigned short TMR_T 			= period;					//	4500 - 16kHz COMPL_MODE		// 360 - 100 kHz PP_MODE
-															// ƒл€ PP_MODE:  TMR_T = (72 000 / „астотак√ц) / 2
-															// 				 „астота(к√ц) = 72 000/(TMR_T * 2)
 unsigned short deadtime_PP 		= DEADTIME;
 
 // вс€кие переменные
 unsigned long count_test = 0;
 int triger = 0;
-
-
-unsigned short get_pwm_value()
-{
-	return(PWM_PP);
-}
-
-unsigned short get_deadtime_value()
-{
-	return(deadtime_PP);
-}
-
-void pwm_PP_stop(void)
-{
-	PWM_PP = 0;
-}
-
 
 
 
@@ -109,7 +90,10 @@ void init_pwm_PP_mode(void)
     TIM1->EGR=TIM_EGR_UG;
 }
 
-
+void pwm_PP_stop(void)
+{
+	PWM_PP = 0;
+}
 
 
 void init_timer3(void)						// Ќастройка таймера 2. ќбщий дл€ отсчЄтов задержек

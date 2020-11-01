@@ -52,23 +52,6 @@ unsigned long count_test = 0;
 int triger = 0;
 
 
-unsigned short get_pwm_value()
-{
-	return(PWM_PP);
-}
-
-unsigned short get_deadtime_value()
-{
-	return(deadtime_PP);
-}
-
-void pwm_PP_stop(void)
-{
-	PWM_PP = 0;
-}
-
-
-
 
 void init_pwm_3phase(void)
 {
@@ -109,7 +92,10 @@ void init_pwm_PP_mode(void)
     TIM1->EGR=TIM_EGR_UG;
 }
 
-
+void pwm_PP_stop(void)
+{
+	PWM_PP = 0;
+}
 
 
 void init_timer3(void)						// Настройка таймера 2. Общий для отсчётов задержек

@@ -190,7 +190,6 @@ int main(void)
 	    	array_mb[3] = 1;
 	    }
 
-
 	    if(array_mb[2] == 16)										// задаёт порог температуры радиатора
 	    {
 	    	array_mb[36] = array_mb[37];

@@ -190,8 +190,7 @@ int main(void)
 	    	array_mb[3] = 1;
 	    }
 
-
-	    if(array_mb[2] == 16)										// задаёт порог температуры радиатора
+	    if(array_mb[2] == 16)										// задаёт порог температуры платы
 	    {
 	    	array_mb[36] = array_mb[37];
 	    	temperature_heater_threshold = array_mb[36];

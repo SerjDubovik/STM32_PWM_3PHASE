@@ -67,12 +67,7 @@ void pwm_PP_stop(void)
 	PWM_PP = 0;
 }
 
-unsigned short get_frequency_pwm()
-{
-	unsigned short frequency;
-	frequency = 72000/(TMR_T * 2);	// расчёт частоты
-	return(frequency);
-}
+
 
 
 void init_pwm_3phase(void)

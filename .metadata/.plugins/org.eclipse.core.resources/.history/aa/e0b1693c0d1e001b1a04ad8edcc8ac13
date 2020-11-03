@@ -168,35 +168,13 @@ int main(void)
 	    }
 
 
-	    if(array_mb[2] == 13)										// задаёт выходное напряжение
+	    if(array_mb[2] == 12)										// задаёт выходное напряжение
 	    {
 	    	set_out_voltage = array_mb[29];
 	    	array_mb[3] = 1;
 	    }
 
 
-	    if(array_mb[2] == 14)										// задаёт токоограничение выхода
-	    {
-	    	array_mb[30] = array_mb[31];
-	    	Isens_threshold = array_mb[30];
-	    	array_mb[3] = 1;
-	    }
-
-
-	    if(array_mb[2] == 15)										// задаёт порог температуры платы
-	    {
-	    	array_mb[33] = array_mb[34];
-	    	temperature_plate_threshold = array_mb[33];
-	    	array_mb[3] = 1;
-	    }
-
-
-	    if(array_mb[2] == 16)										// задаёт порог температуры радиатора
-	    {
-	    	array_mb[36] = array_mb[37];
-	    	temperature_heater_threshold = array_mb[36];
-	    	array_mb[3] = 1;
-	    }
 
 
 	    if(array_mb[2] == 0)										// подтверждение приёма команды. готовность принимать следующую

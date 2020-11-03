@@ -14,7 +14,6 @@ void init_timer3(void);
 
 unsigned short get_pwm_value();
 unsigned short get_deadtime_value();
-unsigned short get_frequency_pwm();
 
 
 

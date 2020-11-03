@@ -22,15 +22,10 @@ unsigned short Ibreak;
 
 
 unsigned short Isens_threshold						= 33;
-
 signed short temperature_plate						= 23;
 signed short temperature_plate_threshold			= 60;
 signed short temperature_heater						= 30;
 signed short temperature_heater_threshold			= 100;
-
-unsigned short frequency_pwm						= 0;
-unsigned short deadtime_pwm							= 0;
-unsigned short set_out_voltage						= 0;
 
 unsigned short	buf_mbus1							= 0;
 
@@ -60,10 +55,8 @@ int main(void)
 
 
     array_mb[21] = threshold_U_zpt;						// Нижнее пороговое значение напряжения ЗПТ (В).
-    deadtime_pwm = get_deadtime_value();				// Текущий дедтайм (ед).
-    array_mb[25] = deadtime_pwm;
-    frequency_pwm = get_frequency_pwm();				// Частота(кГц) = 72 000/(TMR_T * 2)
-    array_mb[23] = frequency_pwm;						// Текущая частота (кГц).
+    array_mb[25] = get_deadtime_value();				// Текущий дедтайм (ед).
+    array_mb[23] = 72000/(period * 2);					// Текущая частота (кГц).	Частота(кГц) = 72 000/(TMR_T * 2)
     array_mb[27] = get_pwm_value();						// Текуший ШИМ.
     array_mb[30] = Isens_threshold;						// Текущее токоограничение (мА).
     array_mb[32] = temperature_plate;					// Температура платы управления (С).
@@ -148,53 +141,6 @@ int main(void)
 	    {
 	    	array_mb[21] = array_mb[22];
 	    	threshold_U_zpt = array_mb[21];
-	    	array_mb[3] = 1;
-	    }
-
-
-	    if(array_mb[2] == 11)										// задает частоту следования импульсов
-	    {
-	    	array_mb[23] = array_mb[24];
-	    	frequency_pwm = array_mb[23];
-	    	array_mb[3] = 1;
-	    }
-
-
-	    if(array_mb[2] == 12)										// задаёт дедтайм
-	    {
-	    	array_mb[25] = array_mb[26];
-	    	deadtime_pwm = array_mb[25];
-	    	array_mb[3] = 1;
-	    }
-
-
-	    if(array_mb[2] == 13)										// задаёт выходное напряжение
-	    {
-	    	set_out_voltage = array_mb[29];
-	    	array_mb[3] = 1;
-	    }
-
-
-	    if(array_mb[2] == 14)										// задаёт токоограничение выхода
-	    {
-	    	array_mb[30] = array_mb[31];
-	    	Isens_threshold = array_mb[30];
-	    	array_mb[3] = 1;
-	    }
-
-
-	    if(array_mb[2] == 15)										// задаёт порог температуры платы
-	    {
-	    	array_mb[33] = array_mb[34];
-	    	temperature_plate_threshold = array_mb[33];
-	    	array_mb[3] = 1;
-	    }
-
-
-	    if(array_mb[2] == 16)										// задаёт порог температуры радиатора
-	    {
-	    	array_mb[36] = array_mb[37];
-	    	temperature_heater_threshold = array_mb[36];
 	    	array_mb[3] = 1;
 	    }
 

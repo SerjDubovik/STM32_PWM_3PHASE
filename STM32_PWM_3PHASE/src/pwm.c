@@ -39,6 +39,7 @@ float factor_voltage = 1.0f;								// коэффициент для задания амплитуды синуса
 
 
 
+
 // переменные для PP режима управления (однотактные/двутактные преобразователи)
 
 unsigned short PWM_PP	 		= 0;						// текушее значение шим для управления выходом
@@ -47,14 +48,36 @@ unsigned short TMR_T 			= period;					//	4500 - 16kHz COMPL_MODE		// 360 - 100 k
 															// 				 Частота(кГц) = 72 000/(TMR_T * 2)
 unsigned short deadtime_PP 		= DEADTIME;
 
+
+
 // всякие переменные
 unsigned long count_test = 0;
 int triger = 0;
 
 
+
+
+
 unsigned short get_pwm_value()
 {
 	return(PWM_PP);
+}
+
+void set_pwm_value(unsigned short pwm_fb)
+{
+	// для РР режима
+    TIM1->CCR1=TMR_T - pwm_fb;
+    TIM1->CCR2=pwm_fb;
+
+
+	// для комплиментарного режима
+	//TIM1->CCR1=pwm_fb;
+}
+
+void set_pwm_value_buck(unsigned short pwm_zpt)
+{
+	// для комплиментарного режима
+	TIM1->CCR2=pwm_zpt;
 }
 
 unsigned short get_deadtime_value()
@@ -101,30 +124,71 @@ void init_pwm_3phase(void)
 
 void init_pwm_PP_mode(void)
 {
+	init_timer3();
+
+    RCC->APB2ENR|= RCC_APB2ENR_TIM1EN;
+
     TIM1->CCMR1=TIM_CCMR1_OC1M_2 | TIM_CCMR1_OC1M_1 | TIM_CCMR1_OC1M_0 | TIM_CCMR1_OC1PE | TIM_CCMR1_OC2M_2 | TIM_CCMR1_OC2M_1 | TIM_CCMR1_OC2PE;
     TIM1->CCER=TIM_CCER_CC1E | TIM_CCER_CC2E;
     TIM1->BDTR=TIM_BDTR_MOE;
 
     TIM1->CCR1=TMR_T - PWM_PP;
     TIM1->CCR2=PWM_PP;
+
     TIM1->ARR=TMR_T;
 
     TIM1->CR1=TIM_CR1_ARPE | TIM_CR1_CMS_1 | TIM_CR1_CMS_0;
     TIM1->CR1|=TIM_CR1_CEN;
     TIM1->EGR=TIM_EGR_UG;
+
 }
 
 
+void init_pwm_Compl(void)
+{
+
+	init_timer3();
 
 
-void init_timer3(void)						// Настройка таймера 2. Общий для отсчётов задержек
+	RCC->APB2ENR|= RCC_APB2ENR_TIM1EN;
+
+
+
+
+    TIM1->CCMR1 =  TIM_CCMR1_OC1M_2 |TIM_CCMR1_OC1M_1 | TIM_CCMR1_OC1PE | TIM_CCMR1_OC2M_2 |TIM_CCMR1_OC2M_1 | TIM_CCMR1_OC2PE;
+    TIM1->CCMR2 =  TIM_CCMR2_OC3M_2 |TIM_CCMR2_OC3M_1 | TIM_CCMR2_OC3PE;
+
+    TIM1->CR2 = TIM_CR2_OIS1 | TIM_CR2_OIS1N;
+
+
+    TIM1->CCER =TIM_CCER_CC1E | TIM_CCER_CC1NE | TIM_CCER_CC2E | TIM_CCER_CC2NE| TIM_CCER_CC3E | TIM_CCER_CC3NE;	// разрешение комплиментарного режима.
+   // TIM1->BDTR =TIM_BDTR_MOE | TIM_BDTR_OSSI | TIM_BDTR_OSSR | DEADTIME;
+    TIM1->BDTR =TIM_BDTR_MOE |  DEADTIME;
+
+
+    TIM1->ARR =TMR_T;							// регистр автоматической перезагрузки
+    TIM1->EGR =TIM_EGR_UG;						// Регистр генерации событий. генерация перезагрузки
+    TIM1->CR1 =TIM_CR1_ARPE | TIM_CR1_CEN;		// разрешить буферизированный режим записи в регистр перезагрузки, разрешить работу счётчика
+
+
+}
+
+/*
+void TIM1_CC_IRQHandler (void)
+{
+
+}
+*/
+
+
+void init_timer3(void)						// Настройка таймера 3. Общий для отсчётов задержек
 {
 	RCC->APB1ENR |= RCC_APB1ENR_TIM3EN;
 	TIM3->CR1 |= TIM_CR1_ARPE; 				//shadow
 	TIM3->CR1 |= TIM_CR1_DIR;
 
 	TIM3->PSC = 71;							// 72MHz/(PSC+1)	один тик  - 1 мкс
-	TIM3->ARR = 25;							// 1000 - 1 мс
+	TIM3->ARR = 1000;						// 1000 - 1 мс
 											// 50 - 55,55 гц
 											// 25 - 111,111 гц
 
@@ -145,6 +209,24 @@ void TIM3_IRQHandler (void)									// обработчик таймера для расчёта частоты ча
 	{
 
 
+/*
+		if(count_test < 100)
+		{
+
+			if(count_test == *P_time_pulse)
+			{
+				TIM1->CCR1 = 0;
+			}
+
+			count_test++;
+		}
+		if(count_test == 100)
+		{
+			count_test = 0;
+			TIM1->CCR1 = *P_pwm;
+		}
+
+*/
 
 	//	test_pwm_step();									// расчёт синуса табличным методом
 

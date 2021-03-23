@@ -5,190 +5,208 @@
 void init_GPIO(void)
 {
 
-	RCC->APB2ENR |= RCC_APB2ENR_IOPAEN;   // Ðàçðåøèòü òàêòèðîâàíèå GPIOA
-	RCC->APB2ENR |= RCC_APB2ENR_IOPBEN;   // Ðàçðåøèòü òàêòèðîâàíèå GPIOB
-	RCC->APB2ENR |= RCC_APB2ENR_IOPCEN;   // Ðàçðåøèòü òàêòèðîâàíèå GPIOC
-	RCC->APB2ENR |= RCC_APB2ENR_IOPDEN;   // Ðàçðåøèòü òàêòèðîâàíèå GPIOD
-	RCC->APB2ENR |= RCC_APB2ENR_IOPEEN;	  // Ðàçðåøèòü òàêòèðîâàíèå GPIOE
+	RCC->APB2ENR |= RCC_APB2ENR_IOPAEN;   // Ð Ð°Ð·Ñ€ÐµÑˆÐ¸Ñ‚ÑŒ Ñ‚Ð°ÐºÑ‚Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ðµ GPIOA
+	RCC->APB2ENR |= RCC_APB2ENR_IOPBEN;   // Ð Ð°Ð·Ñ€ÐµÑˆÐ¸Ñ‚ÑŒ Ñ‚Ð°ÐºÑ‚Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ðµ GPIOB
+	RCC->APB2ENR |= RCC_APB2ENR_IOPCEN;   // Ð Ð°Ð·Ñ€ÐµÑˆÐ¸Ñ‚ÑŒ Ñ‚Ð°ÐºÑ‚Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ðµ GPIOC
+	RCC->APB2ENR |= RCC_APB2ENR_IOPDEN;   // Ð Ð°Ð·Ñ€ÐµÑˆÐ¸Ñ‚ÑŒ Ñ‚Ð°ÐºÑ‚Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ðµ GPIOD
+	RCC->APB2ENR |= RCC_APB2ENR_IOPEEN;	  // Ð Ð°Ð·Ñ€ÐµÑˆÐ¸Ñ‚ÑŒ Ñ‚Ð°ÐºÑ‚Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ðµ GPIOE
 
 
 	//RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO, ENABLE);
 
 
 	/////////////////////////
-	// Ïåðåôåðèÿ
+	// ÐŸÐµÑ€ÐµÑ„ÐµÑ€Ð¸Ñ
 	/*
 	// USART1
-	RCC->APB2ENR |=   RCC_APB2ENR_USART1EN;              // òàêòèðîâàíèå USART1
+	RCC->APB2ENR |=   RCC_APB2ENR_USART1EN;              // Ñ‚Ð°ÐºÑ‚Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ðµ USART1
 
-	//êîíôèãóðèðîâàíèå PORTA.9 äëÿ TX
-	GPIOA->CRH   &= ~(GPIO_CRH_MODE9 | GPIO_CRH_CNF9);   // ïðåäî÷èñòêà MODE è CNF
-	GPIOA->CRH   |=   GPIO_CRH_MODE9 | GPIO_CRH_CNF9_1;  // äâóõòàêòíûé âûõîä ñ àëüòåðíàòè ô-åé, 50MHz
+	//ÐºÐ¾Ð½Ñ„Ð¸Ð³ÑƒÑ€Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ðµ PORTA.9 Ð´Ð»Ñ TX
+	GPIOA->CRH   &= ~(GPIO_CRH_MODE9 | GPIO_CRH_CNF9);   // Ð¿Ñ€ÐµÐ´Ð¾Ñ‡Ð¸ÑÑ‚ÐºÐ° MODE Ð¸ CNF
+	GPIOA->CRH   |=   GPIO_CRH_MODE9 | GPIO_CRH_CNF9_1;  // Ð´Ð²ÑƒÑ…Ñ‚Ð°ÐºÑ‚Ð½Ñ‹Ð¹ Ð²Ñ‹Ñ…Ð¾Ð´ Ñ Ð°Ð»ÑŒÑ‚ÐµÑ€Ð½Ð°Ñ‚Ð¸ Ñ„-ÐµÐ¹, 50MHz
 
-	//êîíôèãóðèðîâàíèå PORTA.10 äëÿ RX
-	GPIOA->CRH   &= ~(GPIO_CRH_MODE10 | GPIO_CRH_CNF10);   // ïðåäî÷èñòêà MODE è CNF
-	GPIOA->CRH   |=   GPIO_CRH_CNF10_0;                   // âõîä, òðåòüå ñîñòîÿíèå
+	//ÐºÐ¾Ð½Ñ„Ð¸Ð³ÑƒÑ€Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ðµ PORTA.10 Ð´Ð»Ñ RX
+	GPIOA->CRH   &= ~(GPIO_CRH_MODE10 | GPIO_CRH_CNF10);   // Ð¿Ñ€ÐµÐ´Ð¾Ñ‡Ð¸ÑÑ‚ÐºÐ° MODE Ð¸ CNF
+	GPIOA->CRH   |=   GPIO_CRH_CNF10_0;                   // Ð²Ñ…Ð¾Ð´, Ñ‚Ñ€ÐµÑ‚ÑŒÐµ ÑÐ¾ÑÑ‚Ð¾ÑÐ½Ð¸Ðµ
 	*/
 
 
 	//USART2
-	RCC->APB2ENR |=   RCC_APB2ENR_AFIOEN;				// òàêòèðîâàíèå àëüòåðíàòèâíûõ ôóíêöèé GPIO
-	RCC->APB1ENR |=   RCC_APB1ENR_USART2EN;             // òàêòèðîâàíèå USART2
+	RCC->APB2ENR |=   RCC_APB2ENR_AFIOEN;				// Ñ‚Ð°ÐºÑ‚Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ðµ Ð°Ð»ÑŒÑ‚ÐµÑ€Ð½Ð°Ñ‚Ð¸Ð²Ð½Ñ‹Ñ… Ñ„ÑƒÐ½ÐºÑ†Ð¸Ð¹ GPIO
+	RCC->APB1ENR |=   RCC_APB1ENR_USART2EN;             // Ñ‚Ð°ÐºÑ‚Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ðµ USART2
 
 
-	AFIO->MAPR|=AFIO_MAPR_SWJ_CFG_JTAGDISABLE;			// îòêëþ÷àåì JTAG. Îñâîáîæäàåì ïèíû äëÿ ñâåòîäèîäîâ.
+	AFIO->MAPR|=AFIO_MAPR_SWJ_CFG_JTAGDISABLE | AFIO_MAPR_TIM1_REMAP_PARTIALREMAP;			// Ð¾Ñ‚ÐºÐ»ÑŽÑ‡Ð°ÐµÐ¼ JTAG. ÐžÑÐ²Ð¾Ð±Ð¾Ð¶Ð´Ð°ÐµÐ¼ Ð¿Ð¸Ð½Ñ‹ Ð´Ð»Ñ ÑÐ²ÐµÑ‚Ð¾Ð´Ð¸Ð¾Ð´Ð¾Ð².
+																							// Ñ€ÐµÐ¼Ð°Ð¿Ð¸Ð¼ Ð¿Ð¸Ð½Ñ‹ Ð´Ð»Ñ ÑˆÐ¸Ð¼ Ð½Ð° TIM1
 
 
+	//ÐšÐ¾Ð½Ñ„Ð¸Ð³ÑƒÑ€Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ðµ GPIOA.0							// Isens - Ð²Ñ…Ð¾Ð´ Ñ Ñ‚Ð¾ÐºÐ¾Ð²Ð¾Ð³Ð¾ Ð´Ð°Ñ‚Ñ‡Ð¸ÐºÐ°
+	GPIOA->CRL &= ~GPIO_CRL_MODE0;   					// Ð¾Ñ‡Ð¸ÑÑ‚Ð¸Ñ‚ÑŒ Ñ€Ð°Ð·Ñ€ÑÐ´Ñ‹ MODE
+	GPIOA->CRL &= ~GPIO_CRL_CNF0;    					// Ð¾Ñ‡Ð¸ÑÑ‚Ð¸Ñ‚ÑŒ Ñ€Ð°Ð·Ñ€ÑÐ´Ñ‹ CNF
 
-	//Êîíôèãóðèðîâàíèå GPIOA.0							// Isens - âõîä ñ òîêîâîãî äàò÷èêà
-	GPIOA->CRL &= ~GPIO_CRL_MODE0;   					// î÷èñòèòü ðàçðÿäû MODE
-	GPIOA->CRL &= ~GPIO_CRL_CNF0;    					// î÷èñòèòü ðàçðÿäû CNF
 
+	// ÐºÐ¾Ð½Ñ„Ð¸Ð³ÑƒÑ€Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ðµ GPIOA.1							// ÑƒÐ¿Ñ€Ð°Ð²Ð»ÐµÐ½Ð¸Ðµ Ð¿Ñ€Ð¸Ñ‘Ð¼Ð¾-Ð¿ÐµÑ€ÐµÐ´Ð°Ñ‚Ñ‡Ð¸ÐºÐ¾Ð¼
+	GPIOA->CRL &= ~GPIO_CRL_MODE1;   					// Ð¾Ñ‡Ð¸ÑÑ‚Ð¸Ñ‚ÑŒ Ñ€Ð°Ð·Ñ€ÑÐ´Ñ‹ MODE
+	GPIOA->CRL &= ~GPIO_CRL_CNF1;    					// Ð¾Ñ‡Ð¸ÑÑ‚Ð¸Ñ‚ÑŒ Ñ€Ð°Ð·Ñ€ÑÐ´Ñ‹ CNF
+	GPIOA->CRL |=  GPIO_CRL_MODE1;   					// Ð²Ñ‹Ñ…Ð¾Ð´, 50MHz
+	GPIOA->CRL &= ~GPIO_CRL_CNF1;    					// Ð¾Ð±Ñ‰ÐµÐ³Ð¾ Ð½Ð°Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ñ, ÑÐ¸Ð¼ÐµÑ‚Ñ€Ð¸Ñ‡Ð½Ñ‹Ð¹
 
-	// êîíôèãóðèðîâàíèå GPIOA.1							// óïðàâëåíèå ïðè¸ìî-ïåðåäàò÷èêîì
-	GPIOA->CRL &= ~GPIO_CRL_MODE1;   					// î÷èñòèòü ðàçðÿäû MODE
-	GPIOA->CRL &= ~GPIO_CRL_CNF1;    					// î÷èñòèòü ðàçðÿäû CNF
-	GPIOA->CRL |=  GPIO_CRL_MODE1;   					// âûõîä, 50MHz
-	GPIOA->CRL &= ~GPIO_CRL_CNF1;    					// îáùåãî íàçíà÷åíèÿ, ñèìåòðè÷íûé
-
-	// çàïèñàòü 0 â GPIOA.1								// ñëóøàåì
+	// Ð·Ð°Ð¿Ð¸ÑÐ°Ñ‚ÑŒ 0 Ð² GPIOA.1								// ÑÐ»ÑƒÑˆÐ°ÐµÐ¼
 	GPIOA->BSRR =  GPIO_BSRR_BR1;
 
 
-	//êîíôèãóðèðîâàíèå PORTA.2 äëÿ TX
-	GPIOA->CRL   &= ~(GPIO_CRL_MODE2 | GPIO_CRL_CNF2);  // Ïðåäî÷èñòêà MODE è CNF
-	GPIOA->CRL   |=   GPIO_CRL_MODE2 | GPIO_CRL_CNF2_1; // Äâóõòàêòíûé âûõîä ñ àëüòåðíàòèâíîé ô-åé, 50MHz
+	//ÐºÐ¾Ð½Ñ„Ð¸Ð³ÑƒÑ€Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ðµ PORTA.2 Ð´Ð»Ñ TX
+	GPIOA->CRL   &= ~(GPIO_CRL_MODE2 | GPIO_CRL_CNF2);  // ÐŸÑ€ÐµÐ´Ð¾Ñ‡Ð¸ÑÑ‚ÐºÐ° MODE Ð¸ CNF
+	GPIOA->CRL   |=   GPIO_CRL_MODE2 | GPIO_CRL_CNF2_1; // Ð”Ð²ÑƒÑ…Ñ‚Ð°ÐºÑ‚Ð½Ñ‹Ð¹ Ð²Ñ‹Ñ…Ð¾Ð´ Ñ Ð°Ð»ÑŒÑ‚ÐµÑ€Ð½Ð°Ñ‚Ð¸Ð²Ð½Ð¾Ð¹ Ñ„-ÐµÐ¹, 50MHz
 
-	//êîíôèãóðèðîâàíèå PORTA.3 äëÿ RX
-	GPIOA->CRL   &= ~(GPIO_CRL_MODE3 | GPIO_CRL_CNF3);  // Ïðåäî÷èñòêà MODE è CNF
-	GPIOA->CRL   |=   GPIO_CRL_CNF3_0;                  // Âõîä, òðåòüå ñîñòîÿíèå
-
-
-	//Êîíôèãóðèðîâàíèå GPIOA.4							// Uzpt - âõîä, íàïðÿæåíèå çâåíà ïîñòîÿííîãî òîêà
-	GPIOA->CRL &= ~GPIO_CRL_MODE4;   					// î÷èñòèòü ðàçðÿäû MODE
-	GPIOA->CRL &= ~GPIO_CRL_CNF4;    					// î÷èñòèòü ðàçðÿäû CNF
-
-	//Êîíôèãóðèðîâàíèå GPIOA.5							// Un - âûõîäíîå íàïðÿæåíèå. îáðàòíàÿ ñâÿçü
-	GPIOA->CRL &= ~GPIO_CRL_MODE5;   					// î÷èñòèòü ðàçðÿäû MODE
-	GPIOA->CRL &= ~GPIO_CRL_CNF5;    					// î÷èñòèòü ðàçðÿäû CNF
-
-	//Êîíôèãóðèðîâàíèå GPIOA.6							// Ibreak - òîê îòñå÷êè. çàùèòíàÿ ôóíêöèÿ.
-	GPIOA->CRL &= ~GPIO_CRL_MODE6;   					// î÷èñòèòü ðàçðÿäû MODE
-	GPIOA->CRL &= ~GPIO_CRL_CNF6;    					// î÷èñòèòü ðàçðÿäû CNF
+	//ÐºÐ¾Ð½Ñ„Ð¸Ð³ÑƒÑ€Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ðµ PORTA.3 Ð´Ð»Ñ RX
+	GPIOA->CRL   &= ~(GPIO_CRL_MODE3 | GPIO_CRL_CNF3);  // ÐŸÑ€ÐµÐ´Ð¾Ñ‡Ð¸ÑÑ‚ÐºÐ° MODE Ð¸ CNF
+	GPIOA->CRL   |=   GPIO_CRL_CNF3_0;                  // Ð’Ñ…Ð¾Ð´, Ñ‚Ñ€ÐµÑ‚ÑŒÐµ ÑÐ¾ÑÑ‚Ð¾ÑÐ½Ð¸Ðµ
 
 
-	//Êîíôèãóðèðîâàíèå GPIOA.7							// ch1n - âûõîä ØÈÌ
-	GPIOA->CRL &= ~GPIO_CRL_MODE7;   					// î÷èñòèòü ðàçðÿäû MODE
-	GPIOA->CRL &= ~GPIO_CRL_CNF7;    					// î÷èñòèòü ðàçðÿäû CNF
-	GPIOA->CRL |=  GPIO_CRL_MODE7;   					// âûõîä, 50MHz
-	GPIOA->CRL |=  GPIO_CRL_CNF7_1;  					// àëüòåðíàòèâíàÿ ôóíêöèÿ, ñèìåòðè÷íûé
+	//ÐšÐ¾Ð½Ñ„Ð¸Ð³ÑƒÑ€Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ðµ GPIOA.4							// Uzpt - Ð²Ñ…Ð¾Ð´, Ð½Ð°Ð¿Ñ€ÑÐ¶ÐµÐ½Ð¸Ðµ Ð·Ð²ÐµÐ½Ð° Ð¿Ð¾ÑÑ‚Ð¾ÑÐ½Ð½Ð¾Ð³Ð¾ Ñ‚Ð¾ÐºÐ°
+	GPIOA->CRL &= ~GPIO_CRL_MODE4;   					// Ð¾Ñ‡Ð¸ÑÑ‚Ð¸Ñ‚ÑŒ Ñ€Ð°Ð·Ñ€ÑÐ´Ñ‹ MODE
+	GPIOA->CRL &= ~GPIO_CRL_CNF4;    					// Ð¾Ñ‡Ð¸ÑÑ‚Ð¸Ñ‚ÑŒ Ñ€Ð°Ð·Ñ€ÑÐ´Ñ‹ CNF
 
-	//Êîíôèãóðèðîâàíèå GPIOA.8							// ch1 - âûõîä ØÈÌ
-	GPIOA->CRH &= ~GPIO_CRH_MODE8;   					// î÷èñòèòü ðàçðÿäû MODE
-	GPIOA->CRH &= ~GPIO_CRH_CNF8;    					// î÷èñòèòü ðàçðÿäû CNF
-	GPIOA->CRH |=  GPIO_CRH_MODE8;   					// âûõîä, 50MHz
-	GPIOA->CRH |=  GPIO_CRH_CNF8_1;  					// àëüòåðíàòèâíàÿ ôóíêöèÿ, ñèìåòðè÷íûé
+	//ÐšÐ¾Ð½Ñ„Ð¸Ð³ÑƒÑ€Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ðµ GPIOA.5							// Un - Ð²Ñ‹Ñ…Ð¾Ð´Ð½Ð¾Ðµ Ð½Ð°Ð¿Ñ€ÑÐ¶ÐµÐ½Ð¸Ðµ. Ð¾Ð±Ñ€Ð°Ñ‚Ð½Ð°Ñ ÑÐ²ÑÐ·ÑŒ
+	GPIOA->CRL &= ~GPIO_CRL_MODE5;   					// Ð¾Ñ‡Ð¸ÑÑ‚Ð¸Ñ‚ÑŒ Ñ€Ð°Ð·Ñ€ÑÐ´Ñ‹ MODE
+	GPIOA->CRL &= ~GPIO_CRL_CNF5;    					// Ð¾Ñ‡Ð¸ÑÑ‚Ð¸Ñ‚ÑŒ Ñ€Ð°Ð·Ñ€ÑÐ´Ñ‹ CNF
 
-	//Êîíôèãóðèðîâàíèå GPIOA.9							// ch2 - âûõîä ØÈÌ
-	GPIOA->CRH &= ~GPIO_CRH_MODE9;   					// î÷èñòèòü ðàçðÿäû MODE
-	GPIOA->CRH &= ~GPIO_CRH_CNF9;    					// î÷èñòèòü ðàçðÿäû CNF
-	GPIOA->CRH |=  GPIO_CRH_MODE9;   					// âûõîä, 50MHz
-	GPIOA->CRH |=  GPIO_CRH_CNF9_1;  					// àëüòåðíàòèâíàÿ ôóíêöèÿ, ñèìåòðè÷íûé
+	//ÐšÐ¾Ð½Ñ„Ð¸Ð³ÑƒÑ€Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ðµ GPIOA.6							// Ibreak - Ñ‚Ð¾Ðº Ð¾Ñ‚ÑÐµÑ‡ÐºÐ¸. Ð·Ð°Ñ‰Ð¸Ñ‚Ð½Ð°Ñ Ñ„ÑƒÐ½ÐºÑ†Ð¸Ñ.
+	GPIOA->CRL &= ~GPIO_CRL_MODE6;   					// Ð¾Ñ‡Ð¸ÑÑ‚Ð¸Ñ‚ÑŒ Ñ€Ð°Ð·Ñ€ÑÐ´Ñ‹ MODE
+	GPIOA->CRL &= ~GPIO_CRL_CNF6;    					// Ð¾Ñ‡Ð¸ÑÑ‚Ð¸Ñ‚ÑŒ Ñ€Ð°Ð·Ñ€ÑÐ´Ñ‹ CNF
 
-	//Êîíôèãóðèðîâàíèå GPIOA.10							// ch3 - âûõîä ØÈÌ
-	GPIOA->CRH &= ~GPIO_CRH_MODE10;  					// î÷èñòèòü ðàçðÿäû MODE
-	GPIOA->CRH &= ~GPIO_CRH_CNF10;   					// î÷èñòèòü ðàçðÿäû CNF
-	GPIOA->CRH |=  GPIO_CRH_MODE10;  					// âûõîä, 50MHz
-	GPIOA->CRH |=  GPIO_CRH_CNF10_1; 					// àëüòåðíàòèâíàÿ ôóíêöèÿ, ñèìåòðè÷íûé
 
-	//Êîíôèãóðèðîâàíèå GPIOA.11							// relay1 - âûõîä óïðàâëåíèÿ ðåëå 1
-	GPIOA->CRH &= ~GPIO_CRH_MODE11;  					// î÷èñòèòü ðàçðÿäû MODE
-	GPIOA->CRH &= ~GPIO_CRH_CNF11;   					// î÷èñòèòü ðàçðÿäû CNF
-	GPIOA->CRH |=  GPIO_CRH_MODE11;  					// âûõîä, 50MHz
-	GPIOA->CRH &= ~GPIO_CRH_CNF11;   					// îáùåãî íàçíà÷åíèÿ, ñèìåòðè÷íûé
+	//ÐšÐ¾Ð½Ñ„Ð¸Ð³ÑƒÑ€Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ðµ GPIOA.7							// ch1n - Ð²Ñ‹Ñ…Ð¾Ð´ Ð¨Ð˜Ðœ
+	GPIOA->CRL &= ~GPIO_CRL_MODE7;   					// Ð¾Ñ‡Ð¸ÑÑ‚Ð¸Ñ‚ÑŒ Ñ€Ð°Ð·Ñ€ÑÐ´Ñ‹ MODE
+	GPIOA->CRL &= ~GPIO_CRL_CNF7;    					// Ð¾Ñ‡Ð¸ÑÑ‚Ð¸Ñ‚ÑŒ Ñ€Ð°Ð·Ñ€ÑÐ´Ñ‹ CNF
+	GPIOA->CRL |=  GPIO_CRL_MODE7;   					// Ð²Ñ‹Ñ…Ð¾Ð´, 50MHz
+	GPIOA->CRL |=  GPIO_CRL_CNF7_1;  					// Ð°Ð»ÑŒÑ‚ÐµÑ€Ð½Ð°Ñ‚Ð¸Ð²Ð½Ð°Ñ Ñ„ÑƒÐ½ÐºÑ†Ð¸Ñ, ÑÐ¸Ð¼ÐµÑ‚Ñ€Ð¸Ñ‡Ð½Ñ‹Ð¹
 
-	//Êîíôèãóðèðîâàíèå GPIOA.12							// relay2 - âûõîä óïðàâëåíèÿ ðåëå 2
-	GPIOA->CRH &= ~GPIO_CRH_MODE12;  					// î÷èñòèòü ðàçðÿäû MODE
-	GPIOA->CRH &= ~GPIO_CRH_CNF12;   					// î÷èñòèòü ðàçðÿäû CNF
-	GPIOA->CRH |=  GPIO_CRH_MODE12;  					// âûõîä, 50MHz
-	GPIOA->CRH &= ~GPIO_CRH_CNF12;   					// îáùåãî íàçíà÷åíèÿ, ñèìåòðè÷íûé
 
-	// GPIOA.13											// swd îòëàäêà
-	// GPIOA.14											// swd îòëàäêà
+	//ÐšÐ¾Ð½Ñ„Ð¸Ð³ÑƒÑ€Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ðµ GPIOA.8							// ch1 - Ð²Ñ‹Ñ…Ð¾Ð´ Ð¨Ð˜Ðœ
+	GPIOA->CRH &= ~GPIO_CRH_MODE8;   					// Ð¾Ñ‡Ð¸ÑÑ‚Ð¸Ñ‚ÑŒ Ñ€Ð°Ð·Ñ€ÑÐ´Ñ‹ MODE
+	GPIOA->CRH &= ~GPIO_CRH_CNF8;    					// Ð¾Ñ‡Ð¸ÑÑ‚Ð¸Ñ‚ÑŒ Ñ€Ð°Ð·Ñ€ÑÐ´Ñ‹ CNF
+	GPIOA->CRH |=  GPIO_CRH_MODE8;   					// Ð²Ñ‹Ñ…Ð¾Ð´, 50MHz
+	GPIOA->CRH |=  GPIO_CRH_CNF8_1;  					// Ð°Ð»ÑŒÑ‚ÐµÑ€Ð½Ð°Ñ‚Ð¸Ð²Ð½Ð°Ñ Ñ„ÑƒÐ½ÐºÑ†Ð¸Ñ, ÑÐ¸Ð¼ÐµÑ‚Ñ€Ð¸Ñ‡Ð½Ñ‹Ð¹
 
-	//Êîíôèãóðèðîâàíèå GPIOA.15							// led1 - ñâåòîäèîä íà ïëàòå.
-	GPIOA->CRH &= ~GPIO_CRH_MODE15;  					// î÷èñòèòü ðàçðÿäû MODE
-	GPIOA->CRH &= ~GPIO_CRH_CNF15;   					// î÷èñòèòü ðàçðÿäû CNF
-	GPIOA->CRH |=  GPIO_CRH_MODE15;  					// âûõîä, 50MHz
-	GPIOA->CRH &= ~GPIO_CRH_CNF15;   					// îáùåãî íàçíà÷åíèÿ, ñèìåòðè÷íûé
 
-	//Êîíôèãóðèðîâàíèå GPIOB.0							// ch2n - âûõîä ØÈÌ
-	GPIOB->CRL &= ~GPIO_CRL_MODE0;   					// î÷èñòèòü ðàçðÿäû MODE
-	GPIOB->CRL &= ~GPIO_CRL_CNF0;    					// î÷èñòèòü ðàçðÿäû CNF
-	GPIOB->CRL |=  GPIO_CRL_MODE0;   					// âûõîä, 50MHz
-	GPIOB->CRL |=  GPIO_CRL_CNF0_1;  					// àëüòåðíàòèâíàÿ ôóíêöèÿ, ñèìåòðè÷íûé
+/*
+	//ÃŠÃ®Ã­Ã´Ã¨Ã£Ã³Ã°Ã¨Ã°Ã®Ã¢Ã Ã­Ã¨Ã¥ GPIOA.7
+	GPIOA->CRL &= ~GPIO_CRL_MODE7;   //Ã®Ã·Ã¨Ã±Ã²Ã¨Ã²Ã¼ Ã°Ã Ã§Ã°Ã¿Ã¤Ã» MODE
+	GPIOA->CRL &= ~GPIO_CRL_CNF7;    //Ã®Ã·Ã¨Ã±Ã²Ã¨Ã²Ã¼ Ã°Ã Ã§Ã°Ã¿Ã¤Ã» CNF
+	GPIOA->CRL |=  GPIO_CRL_MODE7;   //Ã¢Ã»ÃµÃ®Ã¤, 50MHz
+	GPIOA->CRL &= ~GPIO_CRL_CNF7;    //Ã®Ã¡Ã¹Ã¥Ã£Ã® Ã­Ã Ã§Ã­Ã Ã·Ã¥Ã­Ã¨Ã¿, Ã±Ã¨Ã¬Ã¥Ã²Ã°Ã¨Ã·Ã­Ã»Ã©
 
-	//Êîíôèãóðèðîâàíèå GPIOB.1							// ch3n - âûõîä ØÈÌ
-	GPIOB->CRL &= ~GPIO_CRL_MODE1;   					// î÷èñòèòü ðàçðÿäû MODE
-	GPIOB->CRL &= ~GPIO_CRL_CNF1;    					// î÷èñòèòü ðàçðÿäû CNF
-	GPIOB->CRL |=  GPIO_CRL_MODE1;   					// âûõîä, 50MHz
-	GPIOB->CRL |=  GPIO_CRL_CNF1_1;  					// àëüòåðíàòèâíàÿ ôóíêöèÿ, ñèìåòðè÷íûé
 
-	//Êîíôèãóðèðîâàíèå GPIOB.3							// led2 - ñâåòîäèîä íà ïëàòå.
-	GPIOB->CRL &= ~GPIO_CRL_MODE3;   					// î÷èñòèòü ðàçðÿäû MODE
-	GPIOB->CRL &= ~GPIO_CRL_CNF3;    					// î÷èñòèòü ðàçðÿäû CNF
-	GPIOB->CRL |=  GPIO_CRL_MODE3;   					// âûõîä, 50MHz
-	GPIOB->CRL &= ~GPIO_CRL_CNF3;    					// îáùåãî íàçíà÷åíèÿ, ñèìåòðè÷íûé
+	//ÃŠÃ®Ã­Ã´Ã¨Ã£Ã³Ã°Ã¨Ã°Ã®Ã¢Ã Ã­Ã¨Ã¥ GPIOA.8
+	GPIOA->CRH &= ~GPIO_CRH_MODE8;   //Ã®Ã·Ã¨Ã±Ã²Ã¨Ã²Ã¼ Ã°Ã Ã§Ã°Ã¿Ã¤Ã» MODE
+	GPIOA->CRH &= ~GPIO_CRH_CNF8;    //Ã®Ã·Ã¨Ã±Ã²Ã¨Ã²Ã¼ Ã°Ã Ã§Ã°Ã¿Ã¤Ã» CNF
+	GPIOA->CRH |=  GPIO_CRH_MODE8;   //Ã¢Ã»ÃµÃ®Ã¤, 50MHz
+	GPIOA->CRH &= ~GPIO_CRH_CNF8;    //Ã®Ã¡Ã¹Ã¥Ã£Ã® Ã­Ã Ã§Ã­Ã Ã·Ã¥Ã­Ã¨Ã¿, Ã±Ã¨Ã¬Ã¥Ã²Ã°Ã¨Ã·Ã­Ã»Ã©
+*/
+
+	//ÐšÐ¾Ð½Ñ„Ð¸Ð³ÑƒÑ€Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ðµ GPIOA.9							// ch2 - Ð²Ñ‹Ñ…Ð¾Ð´ Ð¨Ð˜Ðœ
+	GPIOA->CRH &= ~GPIO_CRH_MODE9;   					// Ð¾Ñ‡Ð¸ÑÑ‚Ð¸Ñ‚ÑŒ Ñ€Ð°Ð·Ñ€ÑÐ´Ñ‹ MODE
+	GPIOA->CRH &= ~GPIO_CRH_CNF9;    					// Ð¾Ñ‡Ð¸ÑÑ‚Ð¸Ñ‚ÑŒ Ñ€Ð°Ð·Ñ€ÑÐ´Ñ‹ CNF
+	GPIOA->CRH |=  GPIO_CRH_MODE9;   					// Ð²Ñ‹Ñ…Ð¾Ð´, 50MHz
+	GPIOA->CRH |=  GPIO_CRH_CNF9_1;  					// Ð°Ð»ÑŒÑ‚ÐµÑ€Ð½Ð°Ñ‚Ð¸Ð²Ð½Ð°Ñ Ñ„ÑƒÐ½ÐºÑ†Ð¸Ñ, ÑÐ¸Ð¼ÐµÑ‚Ñ€Ð¸Ñ‡Ð½Ñ‹Ð¹
+
+
+	//ÐšÐ¾Ð½Ñ„Ð¸Ð³ÑƒÑ€Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ðµ GPIOA.10							// ch3 - Ð²Ñ‹Ñ…Ð¾Ð´ Ð¨Ð˜Ðœ
+	GPIOA->CRH &= ~GPIO_CRH_MODE10;  					// Ð¾Ñ‡Ð¸ÑÑ‚Ð¸Ñ‚ÑŒ Ñ€Ð°Ð·Ñ€ÑÐ´Ñ‹ MODE
+	GPIOA->CRH &= ~GPIO_CRH_CNF10;   					// Ð¾Ñ‡Ð¸ÑÑ‚Ð¸Ñ‚ÑŒ Ñ€Ð°Ð·Ñ€ÑÐ´Ñ‹ CNF
+	GPIOA->CRH |=  GPIO_CRH_MODE10;  					// Ð²Ñ‹Ñ…Ð¾Ð´, 50MHz
+	GPIOA->CRH |=  GPIO_CRH_CNF10_1; 					// Ð°Ð»ÑŒÑ‚ÐµÑ€Ð½Ð°Ñ‚Ð¸Ð²Ð½Ð°Ñ Ñ„ÑƒÐ½ÐºÑ†Ð¸Ñ, ÑÐ¸Ð¼ÐµÑ‚Ñ€Ð¸Ñ‡Ð½Ñ‹Ð¹
+
+	//ÐšÐ¾Ð½Ñ„Ð¸Ð³ÑƒÑ€Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ðµ GPIOA.11							// relay1 - Ð²Ñ‹Ñ…Ð¾Ð´ ÑƒÐ¿Ñ€Ð°Ð²Ð»ÐµÐ½Ð¸Ñ Ñ€ÐµÐ»Ðµ 1
+	GPIOA->CRH &= ~GPIO_CRH_MODE11;  					// Ð¾Ñ‡Ð¸ÑÑ‚Ð¸Ñ‚ÑŒ Ñ€Ð°Ð·Ñ€ÑÐ´Ñ‹ MODE
+	GPIOA->CRH &= ~GPIO_CRH_CNF11;   					// Ð¾Ñ‡Ð¸ÑÑ‚Ð¸Ñ‚ÑŒ Ñ€Ð°Ð·Ñ€ÑÐ´Ñ‹ CNF
+	GPIOA->CRH |=  GPIO_CRH_MODE11;  					// Ð²Ñ‹Ñ…Ð¾Ð´, 50MHz
+	GPIOA->CRH &= ~GPIO_CRH_CNF11;   					// Ð¾Ð±Ñ‰ÐµÐ³Ð¾ Ð½Ð°Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ñ, ÑÐ¸Ð¼ÐµÑ‚Ñ€Ð¸Ñ‡Ð½Ñ‹Ð¹
+
+	//ÐšÐ¾Ð½Ñ„Ð¸Ð³ÑƒÑ€Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ðµ GPIOA.12							// relay2 - Ð²Ñ‹Ñ…Ð¾Ð´ ÑƒÐ¿Ñ€Ð°Ð²Ð»ÐµÐ½Ð¸Ñ Ñ€ÐµÐ»Ðµ 2
+	GPIOA->CRH &= ~GPIO_CRH_MODE12;  					// Ð¾Ñ‡Ð¸ÑÑ‚Ð¸Ñ‚ÑŒ Ñ€Ð°Ð·Ñ€ÑÐ´Ñ‹ MODE
+	GPIOA->CRH &= ~GPIO_CRH_CNF12;   					// Ð¾Ñ‡Ð¸ÑÑ‚Ð¸Ñ‚ÑŒ Ñ€Ð°Ð·Ñ€ÑÐ´Ñ‹ CNF
+	GPIOA->CRH |=  GPIO_CRH_MODE12;  					// Ð²Ñ‹Ñ…Ð¾Ð´, 50MHz
+	GPIOA->CRH &= ~GPIO_CRH_CNF12;   					// Ð¾Ð±Ñ‰ÐµÐ³Ð¾ Ð½Ð°Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ñ, ÑÐ¸Ð¼ÐµÑ‚Ñ€Ð¸Ñ‡Ð½Ñ‹Ð¹
+
+	// GPIOA.13											// swd Ð¾Ñ‚Ð»Ð°Ð´ÐºÐ°
+	// GPIOA.14											// swd Ð¾Ñ‚Ð»Ð°Ð´ÐºÐ°
+
+	//ÐšÐ¾Ð½Ñ„Ð¸Ð³ÑƒÑ€Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ðµ GPIOA.15							// led1 - ÑÐ²ÐµÑ‚Ð¾Ð´Ð¸Ð¾Ð´ Ð½Ð° Ð¿Ð»Ð°Ñ‚Ðµ.
+	GPIOA->CRH &= ~GPIO_CRH_MODE15;  					// Ð¾Ñ‡Ð¸ÑÑ‚Ð¸Ñ‚ÑŒ Ñ€Ð°Ð·Ñ€ÑÐ´Ñ‹ MODE
+	GPIOA->CRH &= ~GPIO_CRH_CNF15;   					// Ð¾Ñ‡Ð¸ÑÑ‚Ð¸Ñ‚ÑŒ Ñ€Ð°Ð·Ñ€ÑÐ´Ñ‹ CNF
+	GPIOA->CRH |=  GPIO_CRH_MODE15;  					// Ð²Ñ‹Ñ…Ð¾Ð´, 50MHz
+	GPIOA->CRH &= ~GPIO_CRH_CNF15;   					// Ð¾Ð±Ñ‰ÐµÐ³Ð¾ Ð½Ð°Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ñ, ÑÐ¸Ð¼ÐµÑ‚Ñ€Ð¸Ñ‡Ð½Ñ‹Ð¹
+
+	//ÐšÐ¾Ð½Ñ„Ð¸Ð³ÑƒÑ€Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ðµ GPIOB.0							// ch2n - Ð²Ñ‹Ñ…Ð¾Ð´ Ð¨Ð˜Ðœ
+	GPIOB->CRL &= ~GPIO_CRL_MODE0;   					// Ð¾Ñ‡Ð¸ÑÑ‚Ð¸Ñ‚ÑŒ Ñ€Ð°Ð·Ñ€ÑÐ´Ñ‹ MODE
+	GPIOB->CRL &= ~GPIO_CRL_CNF0;    					// Ð¾Ñ‡Ð¸ÑÑ‚Ð¸Ñ‚ÑŒ Ñ€Ð°Ð·Ñ€ÑÐ´Ñ‹ CNF
+	GPIOB->CRL |=  GPIO_CRL_MODE0;   					// Ð²Ñ‹Ñ…Ð¾Ð´, 50MHz
+	GPIOB->CRL |=  GPIO_CRL_CNF0_1;  					// Ð°Ð»ÑŒÑ‚ÐµÑ€Ð½Ð°Ñ‚Ð¸Ð²Ð½Ð°Ñ Ñ„ÑƒÐ½ÐºÑ†Ð¸Ñ, ÑÐ¸Ð¼ÐµÑ‚Ñ€Ð¸Ñ‡Ð½Ñ‹Ð¹
+
+	//ÐšÐ¾Ð½Ñ„Ð¸Ð³ÑƒÑ€Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ðµ GPIOB.1							// ch3n - Ð²Ñ‹Ñ…Ð¾Ð´ Ð¨Ð˜Ðœ
+	GPIOB->CRL &= ~GPIO_CRL_MODE1;   					// Ð¾Ñ‡Ð¸ÑÑ‚Ð¸Ñ‚ÑŒ Ñ€Ð°Ð·Ñ€ÑÐ´Ñ‹ MODE
+	GPIOB->CRL &= ~GPIO_CRL_CNF1;    					// Ð¾Ñ‡Ð¸ÑÑ‚Ð¸Ñ‚ÑŒ Ñ€Ð°Ð·Ñ€ÑÐ´Ñ‹ CNF
+	GPIOB->CRL |=  GPIO_CRL_MODE1;   					// Ð²Ñ‹Ñ…Ð¾Ð´, 50MHz
+	GPIOB->CRL |=  GPIO_CRL_CNF1_1;  					// Ð°Ð»ÑŒÑ‚ÐµÑ€Ð½Ð°Ñ‚Ð¸Ð²Ð½Ð°Ñ Ñ„ÑƒÐ½ÐºÑ†Ð¸Ñ, ÑÐ¸Ð¼ÐµÑ‚Ñ€Ð¸Ñ‡Ð½Ñ‹Ð¹
+
+	//ÐšÐ¾Ð½Ñ„Ð¸Ð³ÑƒÑ€Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ðµ GPIOB.3							// led2 - ÑÐ²ÐµÑ‚Ð¾Ð´Ð¸Ð¾Ð´ Ð½Ð° Ð¿Ð»Ð°Ñ‚Ðµ.
+	GPIOB->CRL &= ~GPIO_CRL_MODE3;   					// Ð¾Ñ‡Ð¸ÑÑ‚Ð¸Ñ‚ÑŒ Ñ€Ð°Ð·Ñ€ÑÐ´Ñ‹ MODE
+	GPIOB->CRL &= ~GPIO_CRL_CNF3;    					// Ð¾Ñ‡Ð¸ÑÑ‚Ð¸Ñ‚ÑŒ Ñ€Ð°Ð·Ñ€ÑÐ´Ñ‹ CNF
+	GPIOB->CRL |=  GPIO_CRL_MODE3;   					// Ð²Ñ‹Ñ…Ð¾Ð´, 50MHz
+	GPIOB->CRL &= ~GPIO_CRL_CNF3;    					// Ð¾Ð±Ñ‰ÐµÐ³Ð¾ Ð½Ð°Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ñ, ÑÐ¸Ð¼ÐµÑ‚Ñ€Ð¸Ñ‡Ð½Ñ‹Ð¹
 
 	// PB4 - Pin4
 	// PB5 - Pin45
 
-	//Êîíôèãóðèðîâàíèå GPIOB.6							// I2C1_SCL
-	GPIOB->CRL &= ~GPIO_CRL_MODE6;   					// î÷èñòèòü ðàçðÿäû MODE
-	GPIOB->CRL &= ~GPIO_CRL_CNF6;    					// î÷èñòèòü ðàçðÿäû CNF
-	GPIOB->CRL |=  GPIO_CRL_MODE6;   					// âûõîä, 50MHz
-	GPIOB->CRL |=  GPIO_CRL_CNF6_1;  					// àëüòåðíàòèâíàÿ ôóíêöèÿ, ñèìåòðè÷íûé
+	//ÐšÐ¾Ð½Ñ„Ð¸Ð³ÑƒÑ€Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ðµ GPIOB.6							// I2C1_SCL
+	GPIOB->CRL &= ~GPIO_CRL_MODE6;   					// Ð¾Ñ‡Ð¸ÑÑ‚Ð¸Ñ‚ÑŒ Ñ€Ð°Ð·Ñ€ÑÐ´Ñ‹ MODE
+	GPIOB->CRL &= ~GPIO_CRL_CNF6;    					// Ð¾Ñ‡Ð¸ÑÑ‚Ð¸Ñ‚ÑŒ Ñ€Ð°Ð·Ñ€ÑÐ´Ñ‹ CNF
+	GPIOB->CRL |=  GPIO_CRL_MODE6;   					// Ð²Ñ‹Ñ…Ð¾Ð´, 50MHz
+	GPIOB->CRL |=  GPIO_CRL_CNF6_1;  					// Ð°Ð»ÑŒÑ‚ÐµÑ€Ð½Ð°Ñ‚Ð¸Ð²Ð½Ð°Ñ Ñ„ÑƒÐ½ÐºÑ†Ð¸Ñ, ÑÐ¸Ð¼ÐµÑ‚Ñ€Ð¸Ñ‡Ð½Ñ‹Ð¹
 
-	//Êîíôèãóðèðîâàíèå GPIOB.7							// I2C1_SDA
-	GPIOB->CRL &= ~GPIO_CRL_MODE7;   					// î÷èñòèòü ðàçðÿäû MODE
-	GPIOB->CRL &= ~GPIO_CRL_CNF7;    					// î÷èñòèòü ðàçðÿäû CNF
-	GPIOB->CRL |=  GPIO_CRL_MODE7;   					// âûõîä, 50MHz
-	GPIOB->CRL |=  GPIO_CRL_CNF7_1;  					// àëüòåðíàòèâíàÿ ôóíêöèÿ, ñèìåòðè÷íûé
+	//ÐšÐ¾Ð½Ñ„Ð¸Ð³ÑƒÑ€Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ðµ GPIOB.7							// I2C1_SDA
+	GPIOB->CRL &= ~GPIO_CRL_MODE7;   					// Ð¾Ñ‡Ð¸ÑÑ‚Ð¸Ñ‚ÑŒ Ñ€Ð°Ð·Ñ€ÑÐ´Ñ‹ MODE
+	GPIOB->CRL &= ~GPIO_CRL_CNF7;    					// Ð¾Ñ‡Ð¸ÑÑ‚Ð¸Ñ‚ÑŒ Ñ€Ð°Ð·Ñ€ÑÐ´Ñ‹ CNF
+	GPIOB->CRL |=  GPIO_CRL_MODE7;   					// Ð²Ñ‹Ñ…Ð¾Ð´, 50MHz
+	GPIOB->CRL |=  GPIO_CRL_CNF7_1;  					// Ð°Ð»ÑŒÑ‚ÐµÑ€Ð½Ð°Ñ‚Ð¸Ð²Ð½Ð°Ñ Ñ„ÑƒÐ½ÐºÑ†Ð¸Ñ, ÑÐ¸Ð¼ÐµÑ‚Ñ€Ð¸Ñ‡Ð½Ñ‹Ð¹
 
 	// PB8 - Pin6
 	// PB9 - Pin7
 	// PB10 - Pin8
 	// PB11 - Pin9
 
-	//Êîíôèãóðèðîâàíèå GPIOB.12							// NSS
-	GPIOB->CRH &= ~GPIO_CRH_MODE12;  					// î÷èñòèòü ðàçðÿäû MODE
-	GPIOB->CRH &= ~GPIO_CRH_CNF12;   					// î÷èñòèòü ðàçðÿäû CNF
-	GPIOB->CRH |=  GPIO_CRH_MODE12;  					// âûõîä, 50MHz
-	GPIOB->CRH |=  GPIO_CRH_CNF12_1; 					// àëüòåðíàòèâíàÿ ôóíêöèÿ, ñèìåòðè÷íûé
+	//ÐšÐ¾Ð½Ñ„Ð¸Ð³ÑƒÑ€Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ðµ GPIOB.12							// NSS
+	GPIOB->CRH &= ~GPIO_CRH_MODE12;  					// Ð¾Ñ‡Ð¸ÑÑ‚Ð¸Ñ‚ÑŒ Ñ€Ð°Ð·Ñ€ÑÐ´Ñ‹ MODE
+	GPIOB->CRH &= ~GPIO_CRH_CNF12;   					// Ð¾Ñ‡Ð¸ÑÑ‚Ð¸Ñ‚ÑŒ Ñ€Ð°Ð·Ñ€ÑÐ´Ñ‹ CNF
+	GPIOB->CRH |=  GPIO_CRH_MODE12;  					// Ð²Ñ‹Ñ…Ð¾Ð´, 50MHz
+	GPIOB->CRH |=  GPIO_CRH_CNF12_1; 					// Ð°Ð»ÑŒÑ‚ÐµÑ€Ð½Ð°Ñ‚Ð¸Ð²Ð½Ð°Ñ Ñ„ÑƒÐ½ÐºÑ†Ð¸Ñ, ÑÐ¸Ð¼ÐµÑ‚Ñ€Ð¸Ñ‡Ð½Ñ‹Ð¹
 
-	//Êîíôèãóðèðîâàíèå GPIOB.13							// SCK
-	GPIOB->CRH &= ~GPIO_CRH_MODE13;  					// î÷èñòèòü ðàçðÿäû MODE
-	GPIOB->CRH &= ~GPIO_CRH_CNF13;   					// î÷èñòèòü ðàçðÿäû CNF
-	GPIOB->CRH |=  GPIO_CRH_MODE13;  					// âûõîä, 50MHz
-	GPIOB->CRH |=  GPIO_CRH_CNF13_1; 					// àëüòåðíàòèâíàÿ ôóíêöèÿ, ñèìåòðè÷íûé
+	//ÐšÐ¾Ð½Ñ„Ð¸Ð³ÑƒÑ€Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ðµ GPIOB.13							// SCK
+	GPIOB->CRH &= ~GPIO_CRH_MODE13;  					// Ð¾Ñ‡Ð¸ÑÑ‚Ð¸Ñ‚ÑŒ Ñ€Ð°Ð·Ñ€ÑÐ´Ñ‹ MODE
+	GPIOB->CRH &= ~GPIO_CRH_CNF13;   					// Ð¾Ñ‡Ð¸ÑÑ‚Ð¸Ñ‚ÑŒ Ñ€Ð°Ð·Ñ€ÑÐ´Ñ‹ CNF
+	GPIOB->CRH |=  GPIO_CRH_MODE13;  					// Ð²Ñ‹Ñ…Ð¾Ð´, 50MHz
+	GPIOB->CRH |=  GPIO_CRH_CNF13_1; 					// Ð°Ð»ÑŒÑ‚ÐµÑ€Ð½Ð°Ñ‚Ð¸Ð²Ð½Ð°Ñ Ñ„ÑƒÐ½ÐºÑ†Ð¸Ñ, ÑÐ¸Ð¼ÐµÑ‚Ñ€Ð¸Ñ‡Ð½Ñ‹Ð¹
 
-	//Êîíôèãóðèðîâàíèå GPIOB.14							// MISO
-	GPIOB->CRH &= ~GPIO_CRH_MODE14;  					// î÷èñòèòü ðàçðÿäû MODE
-	GPIOB->CRH &= ~GPIO_CRH_CNF14;   					// î÷èñòèòü ðàçðÿäû CNF
-	GPIOB->CRH |=  GPIO_CRH_MODE14;  					// âûõîä, 50MHz
-	GPIOB->CRH |=  GPIO_CRH_CNF14_1; 					// àëüòåðíàòèâíàÿ ôóíêöèÿ, ñèìåòðè÷íûé
+	//ÐšÐ¾Ð½Ñ„Ð¸Ð³ÑƒÑ€Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ðµ GPIOB.14							// MISO
+	GPIOB->CRH &= ~GPIO_CRH_MODE14;  					// Ð¾Ñ‡Ð¸ÑÑ‚Ð¸Ñ‚ÑŒ Ñ€Ð°Ð·Ñ€ÑÐ´Ñ‹ MODE
+	GPIOB->CRH &= ~GPIO_CRH_CNF14;   					// Ð¾Ñ‡Ð¸ÑÑ‚Ð¸Ñ‚ÑŒ Ñ€Ð°Ð·Ñ€ÑÐ´Ñ‹ CNF
+	GPIOB->CRH |=  GPIO_CRH_MODE14;  					// Ð²Ñ‹Ñ…Ð¾Ð´, 50MHz
+	GPIOB->CRH |=  GPIO_CRH_CNF14_1; 					// Ð°Ð»ÑŒÑ‚ÐµÑ€Ð½Ð°Ñ‚Ð¸Ð²Ð½Ð°Ñ Ñ„ÑƒÐ½ÐºÑ†Ð¸Ñ, ÑÐ¸Ð¼ÐµÑ‚Ñ€Ð¸Ñ‡Ð½Ñ‹Ð¹
 
-	//Êîíôèãóðèðîâàíèå GPIOB.15							// MOSI
-	GPIOB->CRH &= ~GPIO_CRH_MODE15;  					// î÷èñòèòü ðàçðÿäû MODE
-	GPIOB->CRH &= ~GPIO_CRH_CNF15;   					// î÷èñòèòü ðàçðÿäû CNF
-	GPIOB->CRH |=  GPIO_CRH_MODE15;  					// âûõîä, 50MHz
-	GPIOB->CRH |=  GPIO_CRH_CNF15_1; 					// àëüòåðíàòèâíàÿ ôóíêöèÿ, ñèìåòðè÷íûé
+	//ÐšÐ¾Ð½Ñ„Ð¸Ð³ÑƒÑ€Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ðµ GPIOB.15							// MOSI
+	GPIOB->CRH &= ~GPIO_CRH_MODE15;  					// Ð¾Ñ‡Ð¸ÑÑ‚Ð¸Ñ‚ÑŒ Ñ€Ð°Ð·Ñ€ÑÐ´Ñ‹ MODE
+	GPIOB->CRH &= ~GPIO_CRH_CNF15;   					// Ð¾Ñ‡Ð¸ÑÑ‚Ð¸Ñ‚ÑŒ Ñ€Ð°Ð·Ñ€ÑÐ´Ñ‹ CNF
+	GPIOB->CRH |=  GPIO_CRH_MODE15;  					// Ð²Ñ‹Ñ…Ð¾Ð´, 50MHz
+	GPIOB->CRH |=  GPIO_CRH_CNF15_1; 					// Ð°Ð»ÑŒÑ‚ÐµÑ€Ð½Ð°Ñ‚Ð¸Ð²Ð½Ð°Ñ Ñ„ÑƒÐ½ÐºÑ†Ð¸Ñ, ÑÐ¸Ð¼ÐµÑ‚Ñ€Ð¸Ñ‡Ð½Ñ‹Ð¹
 
 	// PC13 - Pin1
 	// PC14 - Pin2
 	// PC15 - Pin3
 
-} // ñêîáî÷êà init_GPIO
+} // ÑÐºÐ¾Ð±Ð¾Ñ‡ÐºÐ° init_GPIO
 
 
 
@@ -213,11 +231,11 @@ void relay_2(unsigned int set)
 {
 	if(set == on)
 	{
-		GPIOA->BSRR =  GPIO_BSRR_BS11;  				// GPIOA.11=1
+		GPIOA->BSRR =  GPIO_BSRR_BS12;  				// GPIOA.12=1
 	}
 	if(set == off)
 	{
-		GPIOA->BSRR =  GPIO_BSRR_BR11;  				// GPIOA.11=0
+		GPIOA->BSRR =  GPIO_BSRR_BR12;  				// GPIOA.12=0
 	}
 }
 
